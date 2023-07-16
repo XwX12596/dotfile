@@ -1,0 +1,47 @@
+#!/bin/bash
+if [ $# == 1 ]
+then
+        mpv --referrer='https://live.bilibili.com' \
+            --autofit=1280 \
+            --script-opts=osc-visibility=never \
+            --ytdl-raw-options=format='best[vcodec=avc]' \
+            https://live.bilibili.com/$1 &
+elif [ $# == 2 ] && [ $1 == 'r' ]
+then
+	time=$(date "+%m%d%H%M%S")
+        filename="/home/xwx/Media/Live/bili-"$2"-"${time}".flv"
+        echo "Record in ~/Media/Live/"
+        mpv --referrer='https://live.bilibili.com' \
+            --autofit=1280 \
+            --script-opts=osc-visibility=never \
+            --ytdl-raw-options=format='best[vcodec=avc]' --stream-record=${filename} \
+            https://live.bilibili.com/$2 
+elif [ $# == 3 ] && [ $1 == 'rn' ]
+then
+	time=$(date "+%m%d%H%M%S")
+        filename="/home/xwx/Media/Live/"${2}"-"$3"-"${time}".flv"
+        echo "Record in ~/Media/Live/"
+        mpv --referrer='https://live.bilibili.com' \
+            --autofit=1280 \
+            --script-opts=osc-visibility=never \
+            --ytdl-raw-options=format='best[vcodec=avc]' \
+            --stream-record=${filename} \
+            https://live.bilibili.com/$3 
+elif [ $# == 2 ] && [ $1 == 'v' ]
+then
+        mpv --referrer='https://www.bilibili.com' \
+            https://www.bilibili.com/video/$2
+elif [ $# == 3 ] && [ $1 == 'vp' ]
+then
+	prefix="https://www.bilibili.com/video/${2}/?p="
+	num=$3
+	sum=""
+	for i in `seq 1 ${num}`
+	do
+		sum="${sum}${prefix}${i} "
+	done	
+        mpv --referrer='https://www.bilibili.com' ${sum}
+else
+        echo "Wrong Arg!"
+fi
+

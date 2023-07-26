@@ -1,0 +1,5 @@
+if [[ `pulsemixer --get-mute` -eq 0 ]]; then
+  echo `pulsemixer --get-volume | awk '{print $1}'`
+else
+  echo '<M>'
+fi

@@ -75,13 +75,16 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 #alias
-alias mksl="sudo rm -f config.h && sudo make clean install"
+alias mksl="sudo rm -f config.h && sudo make clean install && make clean"
 alias n="nvim"
 alias ra="ranger"
 alias mtp-pad="jmtpfs ~/mnt/XwXPad"
 alias btt="bluetooth toggle"
 alias 60fps="xrandr --output eDP-1 --mode 2560x1600 --rate 60"
 alias chkey="xmodmap ~/.Xmodmap"
+alias clash-upd="curl 'https://apiv2.lipulai.com/api_version2/3jqtetm41pldfola?clash=1&extend=1' > /home/xwx/.clash/fastlink.yaml && sudo systemctl daemon-reload && sudo systemctl restart clash"
+alias pcm="pulsemixer"
+alias r3="/opt/appimages/r3play.AppImage --no-sandbox %U"
 
 # Env
 export EDITOR="nvim"

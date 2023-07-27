@@ -1,0 +1,6 @@
+pkill X
+sudo rmmod --force nvidia_drm 2> /dev/null
+sudo rmmod --force nvidia_modeset 2> /dev/null
+sudo rmmod --force nvidia_uvm 2> /dev/null
+sudo rmmod --force nvidia 2> /dev/null
+sudo modprobe bbswitch && sudo tee /proc/acpi/bbswitch <<<OFF

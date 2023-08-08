@@ -1,5 +1,0 @@
-sudo modprobe nvidia
-sudo modprobe nvidia_uvm
-sudo modprobe nvidia_modeset
-sudo modprobe nvidia_drm
-sudo modprobe bbswitch && sudo tee /proc/acpi/bbswitch <<<ON

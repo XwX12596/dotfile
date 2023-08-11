@@ -27,10 +27,6 @@ then
             --ytdl-raw-options=format='best[vcodec=avc]' \
             --stream-record=${filename} \
             https://live.bilibili.com/$3 
-elif [ $# == 2 ] && [ $1 == 'v' ]
-then
-        mpv --referrer='https://www.bilibili.com' \
-            https://www.bilibili.com/video/$2
 elif [ $# == 3 ] && [ $1 == 'vp' ]
 then
 	prefix="https://www.bilibili.com/video/${2}/?p="

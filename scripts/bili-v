@@ -1,0 +1,7 @@
+#!/bin/bash
+Tip="Requesting..."
+greeting='GET DA⭐ZE'
+bye='Enjoy Yourself!!'
+printf "\e[35m%s\e[0m\n" $Tip
+cid=$(curl -s https://api.bilibili.com/x/player/pagelist?bvid="$1" | jq '.["data"][0]["cid"]')
+mpv --profile=danmaku --script-opts=cid=$cid https://www.bilibili.com/$1 > /dev/null

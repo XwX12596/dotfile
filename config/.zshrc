@@ -78,7 +78,7 @@ source $ZSH/oh-my-zsh.sh
 alias mksl="sudo rm -f config.h && sudo make clean install && make clean"
 alias n="nvim"
 alias ra="ranger"
-alias mtp-pad="jmtpfs ~/mnt/XwXPad"
+alias mtp="jmtpfs ~/mnt/XwXPad"
 alias btt="bluetooth toggle"
 alias 60fps="xrandr --output eDP-1 --mode 2560x1600 --rate 60"
 alias chkey="xmodmap ~/.Xmodmap"

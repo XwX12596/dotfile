@@ -23,6 +23,9 @@ xrdb -merge ~/.Xresources
 fcitx5 -d &
 picom -D 2 &
 xlayoutdisplay -d 144
+if [[ `xrandr | grep HDMI | awk -F' ' '{ print $2 }'` -eq 'connected' ]]; then
+  edp-off
+fi
 while true; do 
   feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
   sleep 20

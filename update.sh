@@ -1,3 +1,5 @@
+rm -f ./config/*
+rm -rf mpv/ nvim/
 cp ~/.liverc config/
 cp ~/.xinitrc config/
 cp ~/.Xmodmap config/

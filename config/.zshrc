@@ -85,7 +85,8 @@ alias chkey="xmodmap ~/.Xmodmap"
 alias clash-upd="curl 'https://apiv2.lipulai.com/api_version2/3jqtetm41pldfola?clash=1&extend=1' > /home/xwx/.clash/fastlink.yaml && sudo systemctl daemon-reload && sudo systemctl restart clash"
 alias pcm="pulsemixer"
 alias r3="/opt/appimages/r3play.AppImage --no-sandbox %U"
-alias mpv-r="mpv --no-config"
+alias mpv-r="mpv --profile=intel"
+alias mpv-b="mpv --playlist=playlist"
 
 # Env
 export EDITOR="nvim"

@@ -4,9 +4,9 @@ return {
 	dependencies = 'nvim-tree/nvim-web-devicons',
 	opts = {
 		options = {
-			mode = "tabs",
+			mode = "buffers",
 			diagnostics = "nvim_lsp",
-			diagnostics_indicator = function(count, level, diagnostics_dict, context)
+			diagnostics_indicator = function(count, level)
 				local icon = level:match("error") and " " or " "
 				return " " .. icon .. count
 			end,
@@ -19,7 +19,7 @@ return {
 			show_close_icon = false,
 			enforce_regular_tabs = true,
 			show_duplicate_prefix = false,
-			tab_size = 16,
+			tab_size = 24,
 			padding = 0,
 			separator_style = "thick",
 		}

@@ -26,6 +26,8 @@ xlayoutdisplay -d 144
 if [[ `xrandr | grep HDMI | awk -F' ' '{ print $2 }'` -eq 'connected' ]]; then
   edp-off
 fi
+systemctl --user import-environment DISPLAY
+clipmenud&
 while true; do 
   feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
   sleep 20

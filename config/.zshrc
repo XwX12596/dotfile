@@ -87,9 +87,27 @@ alias pcm="pulsemixer"
 alias r3="/opt/appimages/r3play.AppImage --no-sandbox %U"
 alias mpv-r="mpv --profile=intel"
 alias mpv-b="mpv --playlist=playlist"
+alias cv="clipmenu"
+alias condaE="source ~/Code/dotfile/scripts/condaEnable"
 
 # Env
 export EDITOR="nvim"
 export system_http_proxy=127.0.0.1:7890
 export system_https_proxy=127.0.0.1:7890
 export system_all_proxy=127.0.0.1:7891
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/xwx/.anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/xwx/.anaconda/etc/profile.d/conda.sh" ]; then
+#         . "/home/xwx/.anaconda/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/xwx/.anaconda/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+

@@ -11,7 +11,7 @@ while IFS=' ' read name ID; do
 done < "$liverc"
 
 printf "\e[35m%s\e[0m\n" "Requesting..."
-respond=$(curl -s \
+respond=$(curl -s -4 \
 	'https://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids' \
 	-H 'Content-Type: application/json' \
 	-d '{"uids": ['$(IFS=,; echo "${!table[*]}")']}')

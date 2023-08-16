@@ -89,6 +89,7 @@ alias mpv-r="mpv --profile=intel"
 alias mpv-b="mpv --playlist=playlist"
 alias cv="clipmenu"
 alias condaE="source ~/Code/dotfile/scripts/condaEnable"
+alias cls="clear"
 
 # Env
 export EDITOR="nvim"

@@ -1,5 +1,14 @@
-if [[ `pulsemixer --get-mute` -eq 0 ]]; then
-  echo `pulsemixer --get-volume | awk '{print $1}'`
+IIDD=`wpctl status | grep \* | sed -n '1p' | cut -c 11-12`
+raw=`wpctl get-volume $IIDD`
+flag=`echo ${raw} | grep MUTE`
+vol=`echo $raw | awk '{print $2}'`
+if [[ $flag -eq '' ]]; then
+  echo ${vol:2}
 else
-  echo '<M>'
+  echo '[M]'
 fi
+# if [[ `pulsemixer --get-mute` -eq 0 ]]; then
+#   echo `pulsemixer --get-volume | awk '{print $1}'`
+# else
+#   echo '<M>'
+# fi

@@ -1,0 +1,2 @@
+IIDD=`wpctl status | grep \* | sed -n '1p' | cut -c 11-12`
+wpctl set-volume $IIDD 5%"$1"

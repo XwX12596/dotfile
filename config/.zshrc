@@ -92,6 +92,7 @@ alias cls="clear"
 alias pcmset="wpctl set-default"
 alias pcmshow="wpctl status | grep \* | sed -n '1p' | awk '{print \$3\$4\$5\$6}' "
 alias pcm="watch wpctl status"
+alias pc="proxychains"
 
 # Env
 export EDITOR="nvim"

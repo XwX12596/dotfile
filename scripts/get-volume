@@ -2,8 +2,9 @@ IIDD=`wpctl status | grep \* | sed -n '1p' | cut -c 11-12`
 raw=`wpctl get-volume $IIDD`
 flag=`echo ${raw} | grep MUTE`
 vol=`echo $raw | awk '{print $2}'`
+vol=`python <<< "print(int("$vol"*100))"`
 if [[ $flag -eq '' ]]; then
-  echo ${vol:2}
+  echo ${vol}
 else
   echo '[M]'
 fi

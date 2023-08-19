@@ -1,26 +1,27 @@
-vim.opt.termguicolors = true
-vim.opt.number = true
-vim.opt.wrap = true
-vim.opt.relativenumber = true
-vim.opt.cursorline = true
-vim.opt.expandtab = false
-vim.opt.smarttab = true
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.autoindent = true
-vim.opt.scrolloff = 4
-vim.opt.foldmethod = 'indent'
-vim.opt.foldlevel = 99
-vim.opt.foldenable = true
-vim.opt.foldlevelstart = 99
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.showmode = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
-vim.opt.mouse:append("a")
-vim.opt.clipboard:append("unnamedplus")
+local v = vim
+v.opt.termguicolors = true
+v.opt.number = true
+v.opt.wrap = true
+v.opt.relativenumber = true
+v.opt.cursorline = true
+v.opt.expandtab = false
+v.opt.smarttab = true
+v.opt.shiftwidth = 2
+v.opt.softtabstop = 2
+v.opt.autoindent = true
+v.opt.scrolloff = 4
+v.opt.foldmethod = 'indent'
+v.opt.foldlevel = 99
+v.opt.foldenable = true
+v.opt.foldlevelstart = 99
+v.opt.splitright = true
+v.opt.splitbelow = true
+v.opt.showmode = true
+v.opt.ignorecase = true
+v.opt.smartcase = true
+v.opt.signcolumn = "yes"
+v.opt.mouse:append("a")
+v.opt.clipboard:append("unnamedplus")
 
 -- vim.o.ttyfast = true
 -- vim.o.autochdir = true

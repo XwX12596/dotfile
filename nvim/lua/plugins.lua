@@ -1,6 +1,7 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
+local v = vim
+local lazypath = v.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not v.loop.fs_stat(lazypath) then
+	v.fn.system({
 		"git",
 		"clone",
 		"--filter=blob:none",
@@ -9,7 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
-vim.opt.rtp:prepend(lazypath)
+v.opt.rtp:prepend(lazypath)
 
 -- add plugins
 local plugins = {
@@ -35,8 +36,8 @@ local plugins = {
 require("lazy").setup(plugins)
 
 -- neovide
-if vim.g.neovide then
-  vim.o.guifont = "Hack:h14" -- text below applies for VimScript
-  vim.g.neovide_transparency = 0.8
-  -- vim.g.neovide_fullscreen = true
+if v.g.neovide then
+	v.o.guifont = "Hack:h14" -- text below applies for VimScript
+	v.g.neovide_transparency = 0.8
+	-- v.g.neovide_fullscreen = true
 end

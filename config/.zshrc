@@ -91,7 +91,7 @@ alias condaE="source ~/Code/dotfile/scripts/condaEnable"
 alias cls="clear"
 alias pcmset="wpctl set-default"
 alias pcmshow="wpctl status | grep \* | sed -n '1p' | awk '{print \$3\$4\$5\$6}' "
-alias pcm="watch wpctl status"
+alias pcm="wpctl status | head -n 30"
 alias pc="proxychains"
 
 # Env

@@ -24,10 +24,8 @@ for ID in ${IDs[@]} ; do
 	title=$(echo $result | sed -e 's/.*"\(.*\)".*/\1/' -e 's/"//g' -e 's/"//g' -e 's/【/「/g' -e 's/】/」/g')
 	result=$(echo $result | sed -e 's/".*", //g' -e 's/, / /g' -e "s/\[//g" -e 's/\]//g')
 	IFS=' ' read live_status live_time room_id short_id<<< $result
-	if [[ ${live_status} == 1 ]]; then
-		if [[ ${short_id} !=  0 ]]; then
-			room_id=${short_id}
-		fi
+	if [[ ${live_status} == 1 || $1 == '-p' ]]; then
+		if [[ ${short_id} !=  0 ]]; then room_id=${short_id}; fi
 		live_time=$(date -d @$live_time +"%H:%M:%S")
 		buffer+='printf "%d\t%s\t\e[90m%s\e[0m\t\e[32m%s\e[0m\t%s\n" "'$count'" "'${table["${ID}"]}'" "'${title}'" "'${live_time}'" "'${room_id}'";'
 		room_ids+=($room_id)

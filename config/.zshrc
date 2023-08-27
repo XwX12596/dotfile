@@ -94,6 +94,7 @@ alias pcmshow="wpctl status | grep \* | sed -n '1p' | awk '{print \$3\$4\$5\$6}'
 alias pcm="wpctl status | head -n 30"
 alias pc="proxychains"
 alias wp="feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/"
+alias bgm="cd '/home/xwx/Media/Bangumi/[VCB-Studio] Boku wa Tomodachi ga Sukunai/[VCB-Studio] Boku wa Tomodachi ga Sukunai [Ma10p_1080p]' && mpv-b --pause"
 
 # Env
 export EDITOR="nvim"

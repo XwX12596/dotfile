@@ -2,7 +2,7 @@
 if [ $# == 1 ]
 then
         mpv --profile=bili-live \
-	    ytdl://https://live.bilibili.com/$1 &
+	    ytdl://https://live.bilibili.com/$1
 elif [ $# == 2 ] && [ $1 == 'r' ]
 then
 	time=$(date "+%m%d%H%M%S")

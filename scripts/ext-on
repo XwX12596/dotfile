@@ -3,4 +3,5 @@ xrandr \
  --dpi 144 \
  --output eDP-1 --off \
  --output $1 --mode 2560x1440 --rate 60 --pos 0x0 --primary \
+
 feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/

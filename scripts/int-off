@@ -1,0 +1,10 @@
+#!/bin/bash
+HDMI=`xrandr | grep -E 'HDMI-1' | awk -F' ' '{ print $2 }'`
+DP=`xrandr | grep -E '^DP-1' | awk -F' ' '{ print $2 }'`
+
+if [[ $HDMI == 'connected' ]]; then
+  ext-on HDMI-1
+elif [[ $DP == 'connected' ]]; then
+  ext-on DP-1
+fi
+feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/

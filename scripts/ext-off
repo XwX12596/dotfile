@@ -1,3 +1,4 @@
+#!/bin/bash
 xrandr \
  --dpi 144 \
  --output eDP-1 --mode 2560x1600 --rate 120 --pos 0x0 --primary \
@@ -6,3 +7,4 @@ xrandr \
  --output DP-2 --off \
  --output DP-3 --off \
  --output DP-4 --off
+feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/

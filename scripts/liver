@@ -37,7 +37,12 @@ if [[ $buffer != '' ]]
 then
 	buffer='printf "\e[34mNO\tNickname\tTitle\tStart\tRoom_ID\n\e[0m";'$buffer
 	eval "$buffer" | column -t -s $'\t'
-	if [[ ${#room_ids[@]} != 0 ]]; then
+	if [[ $1 != '' ]]; then
+	  if [[ $1 == '-p' ]]; then
+	    printf "\e[35m%s\e[0m\n" "$bye"
+	    exit
+	  fi
+	elif [[ ${#room_ids[@]} != 0 ]]; then
 		let total=${#room_ids[@]}-1
 		printf "\e[35m%s\e[0m\n" "choose..."
 		read -a choices

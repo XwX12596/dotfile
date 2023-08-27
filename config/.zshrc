@@ -93,6 +93,7 @@ alias pcmset="wpctl set-default"
 alias pcmshow="wpctl status | grep \* | sed -n '1p' | awk '{print \$3\$4\$5\$6}' "
 alias pcm="wpctl status | head -n 30"
 alias pc="proxychains"
+alias wp="feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/"
 
 # Env
 export EDITOR="nvim"

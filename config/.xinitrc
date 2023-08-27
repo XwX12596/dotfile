@@ -23,14 +23,18 @@ xrdb -merge ~/.Xresources
 fcitx5 -d &
 picom -D 2 &
 xlayoutdisplay -d 144
-if [[ `xrandr | grep HDMI | awk -F' ' '{ print $2 }'` -eq 'connected' ]]; then
-  edp-off
+HDMI=`xrandr | grep -E 'HDMI' | awk -F' ' '{ print $2 }'`
+DP1=`xrandr | grep -E 'DP-1' | awk -F' ' '{ print $2 }'`
+if [[ HDMI -eq 'connected' ]]; then
+  EXT-on HDMI
+elif [[ DP1 -eq 'connected' ]]; then
+  EXT-on DP-1
 fi
 systemctl --user import-environment DISPLAY
 clipmenud&
 while true; do 
   feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
-  sleep 20
+  sleep 120
 done &
 exec slstatus &
 exec dwm

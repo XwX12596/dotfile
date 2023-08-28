@@ -1,6 +1,7 @@
 #!/bin/bash
 HDMI=`xrandr | grep -E 'HDMI-1' | awk -F' ' '{ print $2 }'`
 DP=`xrandr | grep -E '^DP-1' | awk -F' ' '{ print $2 }'`
+cPort=''
 
 if [[ $HDMI == 'connected' ]]; then
   cPort='HDMI-1'
@@ -8,13 +9,25 @@ elif [[ $DP == 'connected' ]]; then
   cPort='DP-1'
 fi
 
-xrandr \
- --dpi 144 \
- --output eDP-1 --mode 2560x1600 --rate 120 --pos 0x0 \
- --output $cPort --mode 2560x1440 --rate 60 --pos 2560x0 --primary \
- --output DP-2 --off \
- --output DP-3 --off \
- --output DP-4 --off
+if [[ $cPort != '' ]]; then
+  xrandr \
+   --dpi 144 \
+   --output eDP-1 --mode 2560x1600 --rate 120 --pos 0x0 \
+   --output $cPort --mode 2560x1440 --rate 60 --pos 2560x0 --primary \
+   --output DP-2 --off \
+   --output DP-3 --off \
+   --output DP-4 --off
+else
+  xrandr \
+   --dpi 144 \
+   --output eDP-1 --mode 2560x1600 --rate 120 --pos 0x0 \
+   --output HDMI-1 --off \
+   --output DP-1 --off \
+   --output DP-2 --off \
+   --output DP-3 --off \
+   --output DP-4 --off
+
+fi
 
 echo "Xft.dpi: 144" | xrdb -merge
 

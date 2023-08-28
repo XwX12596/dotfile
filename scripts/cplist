@@ -1,0 +1,4 @@
+#!/bin/bash
+abp="`pwd`/playlist"
+rm ~/Media/Bangumi/playlist
+ln -s "$abp" ~/Media/Bangumi/playlist

@@ -8,4 +8,6 @@ xrandr \
  --output DP-3 --off \
  --output DP-4 --off
 
+echo "Xft.dpi: 144" | xrdb -merge
+
 feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/

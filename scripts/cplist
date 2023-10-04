@@ -1,4 +1,5 @@
 #!/bin/bash
+ls -1v | grep mkv | sed -e "s:^\(.*mkv\):`pwd`/\1:g" > playlist
 abp="`pwd`/playlist"
 rm ~/Media/Bangumi/playlist
 ln -s "$abp" ~/Media/Bangumi/playlist

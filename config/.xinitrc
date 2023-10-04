@@ -23,15 +23,7 @@ xrdb -merge ~/.Xresources
 # exec
 fcitx5 -d &
 picom -D 2 &
-# xlayoutdisplay -d 144
-# HDMI=`xrandr | grep -E 'HDMI' | awk -F' ' '{ print $2 }'`
-# DP1=`xrandr | grep -E 'DP-1' | awk -F' ' '{ print $2 }'`
-# if [[ HDMI -eq 'connected' ]]; then
-#   EXT-on HDMI
-# elif [[ DP1 -eq 'connected' ]]; then
-#   EXT-on DP-1
-# fi
-int-off
+# int-off
 systemctl --user import-environment DISPLAY
 clipmenud&
 while true; do 

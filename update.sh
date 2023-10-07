@@ -14,5 +14,3 @@ cp ~/.config/kitty/Dracula.conf ./config/Dracula.conf
 cp -r ~/.config/Typora/themes/drake* ./typora/
 cp -r ~/.config/mpv/ ./
 cp -r ~/.config/nvim/ ./
-cp -r /etc/optimus-manager/optimus-manager.conf\
-  /etc/optimus-manager/xorg/ ./optimus-manager

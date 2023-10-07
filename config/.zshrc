@@ -92,6 +92,9 @@ alias pcm="wpctl status | head -n 30"
 alias pc="proxychains"
 alias wp="feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/"
 alias bgm="prime mpv --pause --playlist=/home/xwx/Media/Bangumi/playlist"
+alias modn="sudo envycontrol -s nvidia --force-comp --coolbits --dm sddm --verbose"
+alias modi="sudo envycontrol -s integrated"
+alias modq="sudo envycontrol -q"
 alias show-bat="cat /sys/class/power_supply/BAT0/capacity"
 
 # Env

@@ -31,4 +31,6 @@ while true; do
   sleep 120
 done &
 exec slstatus &
+prime-offload &
 exec dwm
+sudo prime-switch

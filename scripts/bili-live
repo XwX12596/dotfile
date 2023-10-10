@@ -1,14 +1,14 @@
 #!/bin/bash
 if [ $# == 1 ]
 then
-        prime mpv --profile=bili-live \
+        mpv --profile=bili-live \
 	    ytdl://https://live.bilibili.com/$1
 elif [ $# == 2 ] && [ $1 == 'r' ]
 then
 	time=$(date "+%m%d%H%M%S")
         filename="/home/xwx/Media/Live/bili-"$2"-"${time}".flv"
         echo "Record in ~/Media/Live/"
-        prime mpv --profile=bili-live \
+        mpv --profile=bili-live \
 	    --stream-record=${filename} \
             ytdl://https://live.bilibili.com/$2 
 elif [ $# == 3 ] && [ $1 == 'rn' ]
@@ -16,7 +16,7 @@ then
 	time=$(date "+%m%d%H%M%S")
         filename="/home/xwx/Media/Live/"${2}"-"$3"-"${time}".flv"
         echo "Record in ~/Media/Live/"
-        prime mpv --profile=bili-live \
+        mpv --profile=bili-live \
 	    --stream-record=${filename} \
             ytdl://https://live.bilibili.com/$3 
 elif [ $# == 3 ] && [ $1 == 'vp' ]
@@ -28,7 +28,7 @@ then
 	do
 		sum="${sum}${prefix}${i} "
 	done	
-        prime mpv --referrer='https://www.bilibili.com' ${sum}
+        mpv --referrer='https://www.bilibili.com' ${sum}
 else
         echo "Wrong Arg!"
 fi

@@ -9,7 +9,7 @@ export XMODIFIERS    DEFAULT=\@im=fcitx
 xmodmap ~/.Xmodmap
 
 # dpi
-xrdb -merge ~/.Xresources
+# xrdb -merge ~/.Xresources
 
 # exec
 fcitx5 -d &

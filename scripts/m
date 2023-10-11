@@ -1,0 +1,27 @@
+#!/bin/bash
+if [[ $# == 0 ]]; then
+  echo Nothing Input!
+  exit
+fi
+
+state=`sudo envycontrol -q`
+cmd='mpv'
+opt=''
+
+while [ $# != 0 ]; do
+  add="$1"
+  if [[ `echo $add | grep " "` != '' ]]
+  then
+    add="'""$add""'"
+  fi
+  opt="$opt ""$add"
+  shift
+done
+
+if [[ $state == 'nvidia' ]]; then
+  cmd="$cmd ""$opt"
+else
+  cmd="$cmd ""--profile=intel""$opt"
+fi
+
+echo exec "$cmd" | sh

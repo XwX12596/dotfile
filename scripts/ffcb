@@ -5,7 +5,7 @@ if [ `sudo envycontrol -q` == 'integrated' ]
 then
   para=''
 else
-  paru='-hwaccel cuda'
+  para='-hwaccel cuda'
 fi
 echo video:
 cat video
@@ -14,8 +14,8 @@ cat subtitle
 echo ffmpeg "$para" -f concat -safe 0 -i video -c copy "${1}.mp4"
 echo ffmpeg "$para" -f concat -safe 0 -i subtitle "${1}.ass"
 echo ffmpeg "$para" -i $vname -i $sname -c copy "${1}.mkv"
-echo Is That Right? Enter to GO or Ctrl-C to Exit...
+echo Is That Right? Enter to GO ON or Ctrl-C to Exit...
 read
-ffmpeg "$para" -f concat -safe 0 -i video -c copy "${1}.mp4"
-ffmpeg "$para" -f concat -safe 0 -i subtitle "${1}.ass"
-ffmpeg "$para" -i $vname -i $sname -c copy "${1}.mkv"
+echo "ffmpeg "$para" -f concat -safe 0 -i video -c copy "${1}.mp4" && \
+ffmpeg "$para" -f concat -safe 0 -i subtitle "${1}.ass" && \
+ffmpeg "$para" -i $vname -i $sname -c copy "${1}.mkv"" | sh

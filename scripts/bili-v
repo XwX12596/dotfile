@@ -5,20 +5,17 @@ cid=$(curl -s https://api.bilibili.com/x/player/pagelist?bvid="$1"\
   | jq '.["data"][0]["cid"]')
 
 
-if [ $# == 1 ]
-then
+if [ $# == 1 ]; then
   mpv --profile=danmaku --script-opts=cid=$cid\
     https://www.bilibili.com/$1 > /dev/null
-elif [ $# == 3 ] && [ $1 == 'p' ]
-then
-	prefix="https://www.bilibili.com/video/${2}/?p="
-	num=$3
-	sum=""
-	for i in `seq 1 ${num}`
-	do
-		sum="${sum}${prefix}${i} "
-	done	
-        mpv --profile=bili-v ${sum}
+elif [ $# == 3 ] && [ $1 == 'p' ]; then
+  prefix="https://www.bilibili.com/video/${2}/?p="
+  num=$3
+  sum=""
+  for i in `seq 1 ${num}`; do
+	  sum="${sum}${prefix}${i} "
+  done	
+  mpv --profile=bili-v ${sum}
 else
         echo "Wrong Arg!"
 fi

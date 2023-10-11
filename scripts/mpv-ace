@@ -1,9 +1,0 @@
-if [ $# == 1 ]
-then
-  pkill acestreamengine
-  acestreamengine --client-console > /dev/null &
-  sleep 2
-  mpv "http://127.0.0.1:6878/ace/getstream?content_id=${1}" > /dev/null
-else
-  echo 'Wrong Arg!!'
-fi

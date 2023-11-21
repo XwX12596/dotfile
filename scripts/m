@@ -18,10 +18,10 @@ while [ $# != 0 ]; do
   shift
 done
 
-if [[ $state == 'nvidia' ]]; then
-  cmd="$cmd ""$opt"
-else
+if [[ $state == 'integrated' || -a /etc/modprobe.d/vfio.conf ]]; then
   cmd="$cmd ""--profile=intel""$opt"
+else
+  cmd="$cmd ""$opt"
 fi
 
 echo exec "$cmd" | sh

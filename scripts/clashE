@@ -1,0 +1,3 @@
+#!/bin/bash
+clashconfig=kuromis
+/usr/bin/clash -f /home/xwx/.clash/${clashconfig}.yaml -d /home/xwx/.clash/

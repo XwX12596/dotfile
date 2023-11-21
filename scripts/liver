@@ -5,6 +5,7 @@ greeting='GET DA⭐ZE'
 bye='Enjoy Yourself!!'
 sorry='DAMEDAYO!'
 tip='Press Enter To Exit...'
+append_tip='Using Options:'
 
 while IFS=' ' read name ID; do
 	table+=(["$ID"]="$name")
@@ -40,26 +41,30 @@ then
 	if [[ $1 != '' ]]; then
 	  if [[ $1 == '-p' ]]; then
 	    printf "\e[35m%s\e[0m\n" "$bye"
-	    exit
+	    exit 0
+	  elif [[ $1 == '-a' ]]; then
+	    my_opt="-a"" ""'${*:2}'"
+	    printf "\e[34m%s%s\e[0m\n" "$append_tip" "${*:2}"
 	  fi
-	elif [[ ${#room_ids[@]} != 0 ]]; then
-		let total=${#room_ids[@]}-1
-		printf "\e[35m%s\e[0m\n" "choose..."
-		read -a choices
-		if [[ $(echo $choices | grep -E 'a|A') != '' ]]; then
-			choices=($(seq -s ' ' 0 $total))
-		fi
-		for choice in ${choices[@]}; do
-			let choice=$(($choice - 1))
-			if [[ $choice -lt $((${#room_ids[@]} + 1)) ]]; then
-				printf "\e[35m%s\e[0m\n" "bili-live ${room_ids[$(($choice))]}"
-				bili-live ${room_ids[$(($choice))]} &
-			fi
-		done	
-	printf "\e[35m%s\e[0m\n" "$bye"
 	fi
+	if [[ ${#room_ids[@]} != 0 ]]; then
+	  let total=${#room_ids[@]}
+	  printf "\e[35m%s\e[0m\n" "choose..."
+	  read -a choices
+	  if [[ $(echo $choices | grep -E 'a|A') != '' ]]; then
+	    choices="$(seq -s ' ' 0 $(($total - 1)))"
+	  fi
+	  for choice in ${choices[@]}; do
+	    if [ !$choice > ${#room_ids[@]} ]; then
+	      run="${room_ids[$(($choice - 1))]}"" ""${my_opt}"
+	      printf "\e[35mbili-live %s\e[0m\n" "$run"
+	      exec bili-live ${run} &
+	    fi
+	  done	
+      printf "\e[35m%s\e[0m\n" "$bye"
+      fi
 else
-	printf "\e[35m%s\e[0m\n" "$sorry"
-	printf "\e[35m%s\e[0m\n" "$tip"
+      printf "\e[35m%s\e[0m\n" "$sorry"
+      printf "\e[35m%s\e[0m\n" "$tip"
 fi
 read

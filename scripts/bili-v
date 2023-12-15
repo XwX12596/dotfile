@@ -1,13 +1,13 @@
 #!/bin/bash
-Tip="Fetching..."
-printf "\e[35m%s\e[0m\n" $Tip
+# Tip="Fetching..."
+# printf "\e[35m%s\e[0m\n" $Tip
 cid=$(curl -s https://api.bilibili.com/x/player/pagelist?bvid="$1"\
   | jq '.["data"][0]["cid"]')
 
 
 if [ $# == 1 ]; then
-  m --profile=danmaku --script-opts=cid=$cid\
-    https://www.bilibili.com/$1 > /dev/null
+  m --profile=danmaku --script-opts=cid=$cid \
+    https://www.bilibili.com/$1 > /dev/null &
 elif [ $# == 3 ] && [ $1 == 'p' ]; then
   prefix="https://www.bilibili.com/video/${2}/?p="
   num=$3
@@ -15,8 +15,7 @@ elif [ $# == 3 ] && [ $1 == 'p' ]; then
   for i in `seq 1 ${num}`; do
 	  sum="${sum}${prefix}${i} "
   done	
-  m --profile=bili-v ${sum}
+  m --profile=bili-v ${sum} > /dev/null
 else
-        echo "Wrong Arg!"
+  echo Wrong Arg!!
 fi
-

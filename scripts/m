@@ -18,10 +18,14 @@ while [ $# != 0 ]; do
   shift
 done
 
-if [[ $state == 'integrated' || -a /etc/modprobe.d/vfio.conf ]]; then
-  cmd="$cmd ""--profile=intel""$opt"
-else
+nv_nl=$(lspci -nnk | grep -n '01:00.0' | awk -F: '{print $1}')
+nv_dri=$(lspci -nnk | awk 'NR=='$((nv_nl + 2))' {print $5}')
+
+if [[ $nv_dri == 'nvidia' ]]; then
   cmd="$cmd ""$opt"
+else
+  cmd="$cmd ""--profile=intel""$opt"
 fi
 
-echo exec "$cmd" | sh
+echo exec $cmd | sh
+

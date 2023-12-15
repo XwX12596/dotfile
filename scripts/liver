@@ -55,7 +55,7 @@ then
 	    choices="$(seq -s ' ' 0 $(($total - 1)))"
 	  fi
 	  for choice in ${choices[@]}; do
-	    if [ !$choice > ${#room_ids[@]} ]; then
+	    if [[ $choice =~ ^[0-9]+$ ]] && [[ $choice -le ${#room_ids[@]} ]]; then
 	      run="${room_ids[$(($choice - 1))]}"" ""${my_opt}"
 	      printf "\e[35mbili-live %s\e[0m\n" "$run"
 	      exec bili-live ${run} &

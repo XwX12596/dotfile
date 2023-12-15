@@ -2,20 +2,20 @@
 if [ $# == 1 ]
 then
         m --profile=bili-live \
-	    ytdl://https://live.bilibili.com/$1
-elif [ $# == 3 ] && [ $2 == '-r' ]
+	    https://live.bilibili.com/"$1"
+elif [ $# == 3 ] && [ "$2" == '-r' ]
 then
 	time=$(date "+%m%d%H%M%S")
-        filename="/home/xwx/Media/Live/"${3}"-"${time}".flv"
+        filename="/home/xwx/Media/Live/${3}-${time}.flv"
         echo "Record in ~/Media/Live/"
         m --profile=bili-live \
-	    --stream-record=${filename} \
-            ytdl://https://live.bilibili.com/$1 
-elif [ $# == 3 ] && [ $2 == '-a' ]
+	    --stream-record="${filename}" \
+            https://live.bilibili.com/"$1" 
+elif [ $# == 3 ] && [ "$2" == '-a' ]
 then
         m --profile=bili-live \
-            ytdl://https://live.bilibili.com/$1 \
-	    $3
+            https://live.bilibili.com/"$1" \
+	    "$3"
 else
         echo "Wrong Arg!"
 fi

@@ -1,0 +1,10 @@
+#!/bin/bash
+clashconfig=kuromis
+wget -O /home/xwx/.clash/${clashconfig}.yaml $(cat /home/xwx/.clash/${clashconfig}.link)
+if [[ ${clashconfig} == 'kuromis' ]] ;then
+  sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,xwxstudio.com,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
+  sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,bard.google.com,🇺🇸 United States' /home/xwx/.clash/${clashconfig}.yaml
+  sed -i -e '/rules:/a\  - IP-CIDR,10.0.0.0/8,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
+  sed -i -e '/rules:/a\  - IP-CIDR,127.0.0.0/8,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
+  sed -i '/allow-lan/a\external-controller: 127.0.0.1:9090' /home/xwx/.clash/${clashconfig}.yaml
+fi && echo Update Success!

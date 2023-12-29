@@ -5,10 +5,10 @@ grub_nl=$(grep -E "GRUB_CMDLINE_LINUX_DEFAULT=" /etc/default/grub -n | awk -F: '
 
 
 if [[ $1 == 'v' ]]; then
-  sudo  sed -i ''$module_nl'c MODULES=(xhci_hcd vfio_pci vfio vfio_iommu_type1)' /etc/mkinitcpio.conf
+  sudo  sed -i ''$module_nl'c MODULES=(uhid xhci_hcd vfio_pci vfio vfio_iommu_type1)' /etc/mkinitcpio.conf
   sudo  sed -i ''$grub_nl'c GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet intel_iommu=on iommu=pt rd.driver.pre=vfio-pci video=efifb:off vfio-pci.ids=10de:25a9"' /etc/default/grub
 elif [[ $1 == 'n' ]]; then
-  sudo sed -i ''$module_nl'c MODULES=(xhci_hcd)' /etc/mkinitcpio.conf
+  sudo sed -i ''$module_nl'c MODULES=(uhid xhci_hcd)' /etc/mkinitcpio.conf
   sudo sed -i ''$grub_nl'c GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"' /etc/default/grub
 fi
 awk 'NR=='$module_nl' {print $0}' /etc/mkinitcpio.conf

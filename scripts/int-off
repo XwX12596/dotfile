@@ -8,4 +8,4 @@ elif [[ $DP == 'connected' ]]; then
   ext-on DP-1
 fi
 
-feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
+feh --bg-fill --no-fehbg --randomize ~/Media/Picture/wallpaper/wallpaper/

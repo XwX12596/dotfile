@@ -32,6 +32,10 @@ local plugins = {
 	require("plugins.rainbow"),
 	require("plugins.multi-cursor"),
 	require("plugins.lsp"),
+	require("plugins.dap"),
+	require("plugins.latex"),
+	require("plugins.flash"),
+	require("plugins.im")
 }
 require("lazy").setup(plugins)
 

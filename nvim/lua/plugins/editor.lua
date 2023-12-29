@@ -51,7 +51,7 @@ return {
 		}
 	},
 	-- { 'theniceboy/antovim', lazy = false, },
-	{ 'gcmt/wildfire.vim',  lazy = false, },
+	-- { 'gcmt/wildfire.vim',  lazy = false, },
 	-- {
 	-- 	"fedepujol/move.nvim",
 	-- 	config = function()

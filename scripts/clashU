@@ -1,10 +1,17 @@
 #!/bin/bash
-clashconfig=kuromis
-wget -O /home/xwx/.clash/${clashconfig}.yaml $(cat /home/xwx/.clash/${clashconfig}.link)
+clashconfig=$(sed -n -e '/clashconfig=/p' /home/xwx/Code/dotfile/scripts/clashE | awk -F'=' '{print $2}')
+wget -O /home/xwx/.clash/${clashconfig}.yaml $(cat /home/xwx/.clash/.${clashconfig}.link)
 if [[ ${clashconfig} == 'kuromis' ]] ;then
   sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,xwxstudio.com,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
   sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,bard.google.com,🇺🇸 United States' /home/xwx/.clash/${clashconfig}.yaml
   sed -i -e '/rules:/a\  - IP-CIDR,10.0.0.0/8,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
   sed -i -e '/rules:/a\  - IP-CIDR,127.0.0.0/8,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i '/allow-lan/a\external-controller: 127.0.0.1:9090' /home/xwx/.clash/${clashconfig}.yaml
-fi && echo Update Success!
+  sed -i -e '/allow-lan/a\external-controller: 127.0.0.1:9090' /home/xwx/.clash/${clashconfig}.yaml
+  echo Update Kuromis!
+elif [[ ${clashconfig} == 'glados' ]] ;then
+  sed -i -e '/#user rules/a\- DOMAIN-SUFFIX,bard.google.com,GLaDOS-US-03' /home/xwx/.clash/${clashconfig}.yaml
+  sed -i -e '/external-ui/,+1d' /home/xwx/.clash/${clashconfig}.yaml
+  sed -i -e '/allow-lan/c\allow-lan: true' /home/xwx/.clash/${clashconfig}.yaml
+  echo Update GlaDOS!
+fi
+sudo systemctl daemon-reload && sudo systemctl restart clash

@@ -1,9 +1,9 @@
 #!/bin/bash
 xrandr \
- --dpi 144 \
+ --dpi 128 \
  --output eDP-1 --off \
- --output $1 --mode 2560x1440 --rate 60 --pos 0x0 --primary \
+ --output $1 --mode 1920x1080 --rate 75 --pos 0x0 --primary \
 
-echo "Xft.dpi: 144" | xrdb -merge
+echo "Xft.dpi: 128" | xrdb -merge
 
-feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
+feh --bg-fill --no-fehbg --randomize ~/Media/Picture/wallpaper/wallpaper/

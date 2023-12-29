@@ -20,17 +20,16 @@ xinput set-prop ${devid} ${propidScroll} 1
 # dpi
 xrdb -merge ~/.Xresources
 
-# exec
+# execj
 fcitx5 -d &
-picom -D 2 &
+# picom -D 2 &
 # int-off
 systemctl --user import-environment DISPLAY
 clipmenud&
 while true; do 
-  feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
+  feh --bg-fill --no-fehbg --randomize ~/Media/Picture/wallpaper/wallpaper
   sleep 120
 done &
 exec slstatus &
-prime-offload &
+int-off
 exec dwm
-sudo prime-switch

@@ -31,4 +31,4 @@ fi
 
 echo "Xft.dpi: 144" | xrdb -merge
 
-feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/
+feh --bg-fill --no-fehbg --randomize ~/Media/Picture/wallpaper/wallpaper/

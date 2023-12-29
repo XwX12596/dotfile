@@ -11,6 +11,7 @@ swtpm socket --tpm2 --tpmstate dir=${VM_path}/mytpm --ctrl type=unixio,path=${VM
 qemu-system-x86_64 -m 8G \
   -machine q35,smm=on -device intel-iommu,caching-mode=on \
   -cpu host -smp 16 \
+  -device vfio-pci,host=01:00.0 \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/edk2-ovmf/x64/OVMF_CODE.secboot.fd \
   -drive if=pflash,format=raw,file=${VM_path}/OVMF_VARS.fd \
   -tpmdev emulator,id=tpm0,chardev=chrtpm \
@@ -30,4 +31,3 @@ qemu-system-x86_64 -m 8G \
 
 sh /usr/local/bin/qemu-clear.sh 2> /dev/null
 
-  # -device vfio-pci,host=01:00.0 \

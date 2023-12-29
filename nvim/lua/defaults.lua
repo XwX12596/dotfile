@@ -1,4 +1,6 @@
 local v = vim
+v.opt.ttyfast = true
+v.opt.autochdir = true
 v.opt.termguicolors = true
 v.opt.number = true
 v.opt.wrap = true
@@ -23,8 +25,7 @@ v.opt.signcolumn = "yes"
 v.opt.mouse:append("a")
 v.opt.clipboard:append("unnamedplus")
 
--- vim.o.ttyfast = true
--- vim.o.autochdir = true
+
 -- vim.o.exrc = true
 -- vim.o.secure = false
 -- vim.o.tabstop = 2

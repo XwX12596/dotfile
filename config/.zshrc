@@ -75,34 +75,38 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 #alias
-alias mksl="sudo rm -f config.h && sudo make clean install && make clean"
+# alias mksl="sudo rm -f config.h && sudo make clean install && make clean"
+# alias 60fps="xrandr --output eDP-1 --mode 2560x1600 --rate 60"
+# alias pcmset="wpctl set-default"
+# alias pcm="wpctl status | head -n 30"
+# alias chkey="xmodmap ~/.Xmodmap"
+# alias show-bat="cat /sys/class/power_supply/BAT0/capacity"
 alias n="nvim"
 alias ra="ranger"
-alias 60fps="xrandr --output eDP-1 --mode 2560x1600 --rate 60"
-alias chkey="xmodmap ~/.Xmodmap"
-alias clash-upd="curl 'https://apiv2.lipulai.com/api_version2/3jqtetm41pldfola?clash=1&extend=1' > /home/xwx/.clash/fastlink.yaml && sudo systemctl daemon-reload && sudo systemctl restart clash"
-alias r3="/opt/appimages/r3play.AppImage --no-sandbox %U"
 alias condaE="source ~/Code/dotfile/scripts/condaEnable"
 alias cax="conda activate xwx"
 alias cls="clear"
-alias pcmset="wpctl set-default"
-alias pcm="wpctl status | head -n 30"
 alias pc="proxychains"
 alias wp="feh --bg-fill --no-fehbg --randomize ~/Media/wallpaper/"
-alias bgm="mpv --pause --playlist=/home/xwx/Media/Bangumi/playlist"
+alias bgm="m --pause --script-opts=osc-visibility=never --playlist=/home/xwx/Media/Bangumi/playlist"
+alias modi="sudo envycontrol -s integrated"
 alias modn="sudo envycontrol -s nvidia --force-comp --coolbits --dm sddm"
-alias modh="sudo envycontrol -s hybrid --dm sddm --rtd3"
+alias modh="sudo envycontrol -s hybrid --dm sddm"
 alias modq="sudo envycontrol -q"
-alias show-bat="cat /sys/class/power_supply/BAT0/capacity"
-alias mpv-r="mpv --profile=intel"
-alias mpv-rb="mpv --profile=intel --playlist=playlist"
-alias mpv-b="mpv --playlist=playlist"
+alias mp="m --playlist=playlist"
+alias pm="python3.7 -m"
+alias ss="sudo systemctl"
+alias clashR="sudo systemctl daemon-reload && sudo systemctl restart clash"
+alias cax="source ~/.pyxwx/bin/activate"
+# alias nvdri="lspci -nnk | awk 'NR==$(($(lspci -nnk | grep -n '01:00.0' | awk -F: '{print $1}') + 2)) {print \$5}'"
+alias nvdri="lspci -nnk | awk '/01:00\.0/,/driver/{if (NR==start+2) print \$5} {if (\$0 ~ /01:00\.0/) start=NR}'"
+alias ract="source ~/.cleanrl/bin/activate && cd ~/Code/cleanrl && poetry shell"
+alias 144dpi="xrdb -merge <<< Xft.dpi:128"
+alias nf="neofetch"
 
 # Env
 export EDITOR="nvim"
-export system_http_proxy=127.0.0.1:7890
-export system_https_proxy=127.0.0.1:7890
-export system_all_proxy=127.0.0.1:7891
+export PATH=$PATH:/home/xwx/.local/bin:/home/xwx/.py39/bin
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

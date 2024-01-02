@@ -1,16 +1,25 @@
 #!/bin/bash
+HDMI=`xrandr | grep -E 'HDMI-1' | awk -F' ' '{ print $2 }'`
+DP=`xrandr | grep -E '^DP-1' | awk -F' ' '{ print $2 }'`
+
 # fcitx5
 export LANG=zh_CN.UTF-8
 export GTK_IM_MODULE DEFAULT=fcitx
 export QT_IM_MODULE  DEFAULT=fcitx
 export XMODIFIERS    DEFAULT=\@im=fcitx
 
-# CapsLock&Escape
-xmodmap ~/.Xmodmap
-
 # dpi
 xrdb -merge ~/.Xresources
+
+if [[ $HDMI == 'connected' ]]; then
+   xrdb -merge <<< Xft.dpi:128
+else
+   xrdb -merge <<< Xft.dpi:144
+fi
 
 # exec
 fcitx5 -d &
 lsusb --verbose &
+
+# CapsLock&Escape
+# xmodmap ~/.Xmodmap

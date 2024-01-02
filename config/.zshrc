@@ -98,10 +98,10 @@ alias pm="python3.7 -m"
 alias ss="sudo systemctl"
 alias clashR="sudo systemctl daemon-reload && sudo systemctl restart clash"
 alias cax="source ~/.pyxwx/bin/activate"
-# alias nvdri="lspci -nnk | awk 'NR==$(($(lspci -nnk | grep -n '01:00.0' | awk -F: '{print $1}') + 2)) {print \$5}'"
 alias nvdri="lspci -nnk | awk '/01:00\.0/,/driver/{if (NR==start+2) print \$5} {if (\$0 ~ /01:00\.0/) start=NR}'"
 alias ract="source ~/.cleanrl/bin/activate && cd ~/Code/cleanrl && poetry shell"
-alias 144dpi="xrdb -merge <<< Xft.dpi:128"
+alias 144="xrdb -merge <<< Xft.dpi:144"
+alias 128="xrdb -merge <<< Xft.dpi:128"
 alias nf="neofetch"
 
 # Env

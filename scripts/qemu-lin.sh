@@ -1,6 +1,7 @@
 #!/bin/bash
 
 VM_path='/home/xwx/Media/VM/'
+VM_img='ubuntu'
 sudo tunctl -t tap0 -u xwx > /dev/null
 sudo ifconfig tap0 192.168.12.1 up
 sudo iptables -A FORWARD -i tap0 -j ACCEPT
@@ -20,8 +21,8 @@ qemu-system-x86_64 -m 8G \
   -device virtserialport,chardev=spice0,name=com.redhat.spice.0 \
   -chardev spicevmc,id=spice0,name=vdagent \
   --enable-kvm -boot order=c \
-  -drive if=pflash,format=raw,file=${VM_path}OVMF-lin.fd \
-  ${VM_path}ubuntu &
+  -drive if=pflash,format=raw,file=${VM_path}OVMF-${VM_img}.fd \
+  ${VM_path}${VM_img} &
  
 remote-viewer spice://localhost:3000
 

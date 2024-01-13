@@ -20,12 +20,17 @@ done
 
 nv_nl=$(lspci -nnk | grep -n '01:00.0' | awk -F: '{print $1}')
 nv_dri=$(lspci -nnk | awk 'NR=='$((nv_nl + 2))' {print $5}')
+bat_stat=$(upower -i `upower -e | grep 'BAT'` | awk '/state/{print $2}')
+hdmi=$(xrandr | grep -E 'HDMI-1' | awk -F' ' '{ print $2 }')
 
-if [[ $nv_dri == 'nvidia' ]]; then
+if [[ $nv_dri == 'nvidia' ]] && [[ $bat_stat != 'discharging' ]]; then
   cmd="$cmd ""$opt"
 else
   cmd="$cmd ""--profile=intel""$opt"
 fi
 
-echo exec $cmd | sh
+if [[ $hdmi == 'disconnected' ]]; then
+  cmd="$cmd ""--autofit=1920"
+fi
 
+echo exec $cmd | sh

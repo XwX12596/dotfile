@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh git@xwxstudio.com "mv ${1}.git trash"

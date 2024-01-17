@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh git@xwxstudio.com "mkdir ${1}.git && git init --bare ${1}.git"

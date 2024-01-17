@@ -16,6 +16,7 @@ qemu-system-x86_64 -m 8G \
   -netdev tap,id=network1,ifname=tap1,script=no,downscript=no,vhost=on \
   -device qemu-xhci,id=xhci \
   -usb -device usb-tablet \
+  -device usb-host,bus=xhci.0,vendorid=0x18d1,productid=0x4ee7 \
   -audiodev pipewire,id=snd0 \
   -device ich9-intel-hda \
   -device hda-output,audiodev=snd0 \

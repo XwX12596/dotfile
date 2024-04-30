@@ -1,5 +1,5 @@
 #!/bin/bash
-ls -1v *mkv *mp4 | sed "s:\(.*[mkv|mp4]\):$(pwd | sed 's:&:\\&:g')/&:g" > playlist
+ls -1v *mkv *mp4 2> /dev/null | sed "s:\(.*[mkv|mp4]\):$(pwd | sed 's:&:\\&:g')/&:g" > playlist
 abp="`pwd`/playlist"
 rm ~/Media/Bangumi/playlist
 ln -s "$abp" ~/Media/Bangumi/playlist

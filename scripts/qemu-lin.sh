@@ -21,7 +21,7 @@ qemu-system-x86_64 -m 8G \
   -device virtserialport,chardev=spice0,name=com.redhat.spice.0 \
   -chardev spicevmc,id=spice0,name=vdagent \
   --enable-kvm -boot order=c \
-  -drive if=pflash,format=raw,file=${VM_path}OVMF-${VM_img}.fd \
+  -drive if=pflash,format=raw,file=${VM_path}OVMF/OVMF-${VM_img}.fd \
   ${VM_path}${VM_img} &
  
 remote-viewer spice://localhost:3000

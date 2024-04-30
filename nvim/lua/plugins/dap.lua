@@ -39,11 +39,11 @@ return {
 	layouts = {{
 	  elements = {{
 	      id = "scopes",
-	      size = 0.3
+	      size = 0.4
 	    },
 	    {
 	      id = "watches",
-	      size = 0.7
+	      size = 0.6
 	    }
 	  },
 	  position = "bottom",

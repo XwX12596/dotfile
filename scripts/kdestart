@@ -7,19 +7,20 @@ export LANG=zh_CN.UTF-8
 export GTK_IM_MODULE DEFAULT=fcitx
 export QT_IM_MODULE  DEFAULT=fcitx
 export XMODIFIERS    DEFAULT=\@im=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
+
 
 # dpi
-xrdb -merge ~/.Xresources
-
-if [[ $HDMI == 'connected' ]]; then
-   xrdb -merge <<< Xft.dpi:128
-else
-   xrdb -merge <<< Xft.dpi:144
-fi
+# xrdb -merge ~/.Xresources
+#
+# if [[ $HDMI == 'connected' ]]; then
+#    xrdb -merge <<< Xft.dpi:128
+# else
+#    xrdb -merge <<< Xft.dpi:144
+# fi
 
 # exec
-fcitx5 -d &
-lsusb --verbose &
 
 # CapsLock&Escape
 # xmodmap ~/.Xmodmap

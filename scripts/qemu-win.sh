@@ -11,12 +11,12 @@ sudo iptables -t nat -A POSTROUTING -s 192.168.13.0/24 -j MASQUERADE
 qemu-system-x86_64 -m 8G \
   --enable-kvm -machine q35 -device intel-iommu,caching-mode=on \
   -cpu host -smp 16 \
-  -drive if=pflash,format=raw,file=${VM_path}/OVMF-${VM_img}.fd \
+  -drive if=pflash,format=raw,file=${VM_path}/OVMF/OVMF-${VM_img}.fd \
   -device virtio-net,netdev=network1 \
   -netdev tap,id=network1,ifname=tap1,script=no,downscript=no,vhost=on \
   -device qemu-xhci,id=xhci \
   -usb -device usb-tablet \
-  -device usb-host,bus=xhci.0,vendorid=0x18d1,productid=0x4ee7 \
+  -device usb-host,bus=xhci.0,vendorid=0xf182,productid=0x0003 \
   -audiodev pipewire,id=snd0 \
   -device ich9-intel-hda \
   -device hda-output,audiodev=snd0 \
@@ -40,4 +40,7 @@ sudo tunctl -d tap1
   #
   # -device usb-host,bus=xhci.0,vendorid=0x258a,productid=0x0049 \
   # -device usb-host,bus=xhci.0,vendorid=0x05ac,productid=0x0256 \
+  # -device usb-host,bus=xhci.0,vendorid=0xf182,productid=0x0003 \
+  # -device usb-host,bus=xhci.0,vendorid=0x18d1,productid=0x4ee7 \
+  # f182:0003
   # -device vfio-pci,host=01:00.0 \

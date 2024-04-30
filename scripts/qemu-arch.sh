@@ -1,8 +1,7 @@
 #!/bin/bash
 
 VM_path='/home/xwx/Media/VM/'
-install_ISO='ubuntu-20.04.6-desktop-amd64.iso'
-VM_img='ubuntu'
+VM_img='arch'
 net_addr='192.168.14'
 sudo tunctl -t tap-install -u xwx
 sudo ifconfig tap-install ${net_addr}.1 up
@@ -14,7 +13,6 @@ qemu-system-x86_64 -m 8G \
   -machine q35,smm=on \
   -cpu host -smp 16 \
   -drive if=pflash,format=raw,file=${VM_path}OVMF/OVMF-${VM_img}.fd \
-  -cdrom ${VM_path}ISO/${install_ISO} \
   -device virtio-net,netdev=network-install \
   -netdev tap,id=network-install,ifname=tap-install,script=no,downscript=no,vhost=on \
   -device qemu-xhci,id=xhci \
@@ -27,7 +25,7 @@ qemu-system-x86_64 -m 8G \
   ${VM_path}${VM_img} &
 
 remote-viewer spice://localhost:3001
-umount /home/xwx/Media/VM/share-win
+umount /home/xwx/Media/VM/share-lin
 sudo iptables -D FORWARD -i tap-install -j ACCEPT
 sudo iptables -D FORWARD -o tap-install -j ACCEPT
 sudo iptables -t nat -D POSTROUTING -s ${net_addr}.0/24 -j MASQUERADE

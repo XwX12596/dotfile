@@ -43,7 +43,7 @@ then
 	    printf "\e[35m%s\e[0m\n" "$bye"
 	    exit 0
 	  elif [[ $1 == '-a' ]]; then
-	    my_opt="-a"" ""'${*:2}'"
+	    my_opt="-a"" ""${*:2}"
 	    printf "\e[34m%s%s\e[0m\n" "$append_tip" "${*:2}"
 	  fi
 	fi

@@ -40,6 +40,7 @@ alias printerE="sudo systemctl start cups-browsed.service"
 alias lzuip="curl 'http://10.10.0.166/srun_portal_success?ac_id=2&theme=lzu' 2>/dev/null | grep user_ip | awk -F'\"' '{print \$8}'"
 alias the="cd /home/xwx/Thesis/ && n main.tex"
 alias tt="rdesktop -g 1920x1080 -P -z -x l 172.20.154.32:3389 -u 'Alanleemiku@outlook.com' -p lwt20021229 -r clipboard:PRIMARYCLIPBOARD -r disk:Arch-xwx=/home/xwx"
+alias ngb="n -c e++enc=gb2312"
 
 # Env
 export EDITOR="nvim"

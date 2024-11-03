@@ -1,18 +1,14 @@
 #!/bin/bash
-clashconfig=$(sed -n -e '/clashconfig=/p' /home/xwx/Code/dotfile/scripts/clashE | awk -F'=' '{print $2}')
+clashconfig=$(cat ~/.clash/current)
 wget -O /home/xwx/.clash/${clashconfig}.yaml $(cat /home/xwx/.clash/.${clashconfig}.link)
-if [[ ${clashconfig} == 'kuromis' ]] ;then
-  sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,xwxstudio.com,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,bard.google.com,🇺🇸 United States' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/rules:/a\  - DOMAIN-SUFFIX,networkcheck.kde.org,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/rules:/a\  - IP-CIDR,10.0.0.0/8,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/rules:/a\  - IP-CIDR,127.0.0.0/8,DIRECT' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/- name: Steam/{n;n;n;d;}' /home/xwx/.clash/kuromis.yaml
-  sed -i -e '/allow-lan/a\external-controller: 127.0.0.1:9090' /home/xwx/.clash/${clashconfig}.yaml
-elif [[ ${clashconfig} == 'glados' ]] ;then
-  sed -i -e '/#user rules/a\- DOMAIN-SUFFIX,bard.google.com,GLaDOS-US-03' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/external-ui/,+1d' /home/xwx/.clash/${clashconfig}.yaml
-  sed -i -e '/allow-lan/c\allow-lan: true' /home/xwx/.clash/${clashconfig}.yaml
+if [[ ${clashconfig} == 'ikuuu' ]] ;then
+  sed -i -e '/socks-port/s/7891/7890/g' /home/xwx/.clash/${clashconfig}.yaml && \
+    echo 'Doing: sed -i -e "'"/socks-port/s/7891/7890/g"'" /home/xwx/.clash/${clashconfig}.yaml'
+  sed -i -e '/socks-port/s/socks/mixed/g' /home/xwx/.clash/${clashconfig}.yaml && \
+    echo 'Doing: sed -i -e "'"/socks-port/s/socks/mixed/g"'" /home/xwx/.clash/${clashconfig}.yaml'
+  sed -i -e '/^port/d' /home/xwx/.clash/${clashconfig}.yaml && \
+    echo 'Doing: sed -i -e "'"/^port/d"'" /home/xwx/.clash/${clashconfig}.yaml'
+  head -n 1 /home/xwx/.clash/${clashconfig}.yaml
 fi
 echo Update ${clashconfig}!
 sudo systemctl daemon-reload && sudo systemctl restart clash

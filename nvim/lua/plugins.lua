@@ -22,7 +22,7 @@ local plugins = {
 	require("plugins.editor"),
 	require("plugins.funny"),
 	require("plugins.git"),
-	require("plugins.ranger"),
+	-- require("plugins.ranger"),
 	require("plugins.snippets"),
 	require("plugins.statusline"),
 	require("plugins.surround"),
@@ -35,7 +35,8 @@ local plugins = {
 	require("plugins.dap"),
 	require("plugins.latex"),
 	require("plugins.flash"),
-	require("plugins.im")
+	require("plugins.im"),
+	require("plugins.tree")
 }
 require("lazy").setup(plugins)
 
@@ -44,4 +45,9 @@ if v.g.neovide then
 	v.o.guifont = "Hack:h14" -- text below applies for VimScript
 	v.g.neovide_transparency = 0.8
 	-- v.g.neovide_fullscreen = true
+end
+
+-- vscode
+if vim.g.vscode then
+
 end

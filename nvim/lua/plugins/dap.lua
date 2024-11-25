@@ -14,8 +14,8 @@ return {
   'mfussenegger/nvim-dap-python',
   dependencies = {
     { 'mfussenegger/nvim-dap' },
-    { 'nvim-neotest/nvim-nio' },
     { 'rcarriga/nvim-dap-ui' },
+    { 'nvim-neotest/nvim-nio' },
   },
   config = function ()
     local dap = require('dap')
@@ -31,7 +31,7 @@ return {
     }
     dap.adapters.python = {
       type = 'executable';
-      command = os.getenv('HOME') .. '/.local/share/nvim/mason/packages/debugpy/venv/bin/python';
+      command = 'C:/Users/xwx/AppData/Local/Programs/Python/Python310/python.exe';
       args = { '-m', 'debugpy.adapter' };
     }
     local dapui = require("dapui")

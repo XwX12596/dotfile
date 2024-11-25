@@ -1,3 +1,0 @@
-#!/bin/bash
-clashconfig=$(cat ~/.clash/current)
-/usr/bin/mihomo -f /home/xwx/.clash/${clashconfig}.yaml -d /home/xwx/.clash/

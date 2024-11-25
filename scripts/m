@@ -4,7 +4,7 @@ if [[ $# == 0 ]]; then
   exit
 fi
 
-cmd='mpv.exe'
+cmd='mpv'
 opt=''
 
 while [ $# != 0 ]; do

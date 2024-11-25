@@ -4,6 +4,7 @@ if [[ $# == 0 ]]; then
   exit
 fi
 
+state=`sudo envycontrol -q`
 cmd='mpv'
 opt=''
 
@@ -16,6 +17,14 @@ while [ $# != 0 ]; do
   shift
 done
 
-cmd="$cmd ""$opt"
+nv_nl=$(lspci -nnk | grep -n '01:00.0' | awk -F: '{print $1}')
+nv_dri=$(lspci -nnk | awk 'NR=='$((nv_nl + 2))' {print $5}')
+bat_stat=$(upower -i `upower -e | grep 'BAT'` | awk '/state/{print $2}')
 
-echo $cmd
+if [[ $nv_dri != 'integrated' ]] && [[ $bat_stat != 'discharging' ]]; then
+  cmd="$cmd ""$opt"
+else
+  cmd="$cmd ""--profile=intel""$opt"
+fi
+
+echo exec $cmd

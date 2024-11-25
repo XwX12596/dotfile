@@ -6,8 +6,9 @@ cid=$(curl -s https://api.bilibili.com/x/player/pagelist?bvid="$1"\
 
 
 if [ $# == 1 ]; then
-  m --profile=danmaku --script-opts=cid=$cid \
-    https://www.bilibili.com/$1 > /dev/null &
+	echo $cid $1
+  m --profile=bili-v --script-opts=cid=$cid \
+    https://www.bilibili.com/$1
 elif [ $# == 3 ] && [ $1 == 'p' ]; then
   prefix="https://www.bilibili.com/video/${2}/?p="
   num=$3
@@ -15,7 +16,7 @@ elif [ $# == 3 ] && [ $1 == 'p' ]; then
   for i in `seq 1 ${num}`; do
 	  sum="${sum}${prefix}${i} "
   done	
-  m --profile=bili-v ${sum} > /dev/null
+  mpv.exe --profile=bili-v ${sum}
 else
   echo Wrong Arg!!
 fi

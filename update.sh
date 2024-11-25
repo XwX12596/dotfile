@@ -12,8 +12,8 @@ else
 	echo NO NEOVIM!
 fi
 
-cp ~/.liverc config/
-cp ~/.zshrc config/
+cp ~/.liverc config/liverc
+cp ~/.zshrc config/zshrc
 cp ~/.config/yt-dlp/config ./config/yt-dlp.conf
 cp ~/.config/kitty/kitty.conf ./config/kitty.conf
 cp ~/.config/kitty/Dracula.conf ./config/Dracula.conf
@@ -21,6 +21,6 @@ cp ~/.config/kitty/Dracula.conf ./config/Dracula.conf
 cp -r ~/.config/Typora/themes/drake* ./typora/
 cp -r ~/Media/VM/install/ ./qemuinstall
 
-# cp ~/.xinitrc config/
-# cp ~/.Xmodmap config/
-# cp ~/.Xresources config/
+cp ~/.xinitrc config/xinitrc
+cp ~/.Xmodmap config/Xmodmap
+cp ~/.Xresources config/Xresources

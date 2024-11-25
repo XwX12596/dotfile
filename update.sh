@@ -12,8 +12,8 @@ else
 	echo NO NEOVIM!
 fi
 
-cp ~/.liverc config/
-cp ~/.zshrc config/
+cp ~/.liverc config/liverc
+cp ~/.zshrc config/zshrc
 cp ~/.config/yt-dlp/config ./config/yt-dlp.conf
 cp ~/.config/kitty/kitty.conf ./config/kitty.conf
 cp ~/.config/kitty/Dracula.conf ./config/Dracula.conf

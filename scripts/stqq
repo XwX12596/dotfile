@@ -1,3 +1,0 @@
-xfce4-panel --disable-wm-check &
-sleep 3
-qq

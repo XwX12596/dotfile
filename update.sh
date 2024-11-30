@@ -1,12 +1,12 @@
 #!/bin/bash
 if [[ -e ~/.config/mpv ]];then
-	rm -f mpv/
+	rm -rf mpv/
 	cp -r ~/.config/mpv/ ./
 else
 	echo NO MPV!
 fi
 if [[ -e ~/.config/nvim ]];then
-	rm -f nvim
+	rm -rf nvim
 	cp -r ~/.config/nvim/ ./
 else
 	echo NO NEOVIM!

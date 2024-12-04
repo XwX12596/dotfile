@@ -432,9 +432,12 @@ def export(func):
 
 
 def getComments(cid,font_size = 25):
-    # url = 'https://comment.bilibili.com/{}.xml'.format(cid[0])
-    url = ''.join(['https://comment.bilibili.com/',cid[0],'.xml'])
-    response = request.urlopen(url, context=ssl.SSLContext(ssl.PROTOCOL_TLS))
+    response = request.urlopen(request.Request(
+        url = ''.join(['https://comment.bilibili.com/',cid[0],'.xml']),
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0'
+        }
+    ))
     data = str(zlib.decompress(response.read(), -zlib.MAX_WBITS), "utf-8")
     response.close()
     comments = []
@@ -450,7 +453,7 @@ def write2file(comments, directory, stage_width, stage_height,reserve_blank=0, f
     if comment_filter and ( comment_filters or comment_filters_file):
         comment_filters = [comment_filter]
         if comment_filters_file:
-            with open(comment_filters_file, 'r') as f:
+            with open(comment_filters_file, 'r', encoding='utf-8') as f:
                 d = f.readlines()
                 comment_filters.extend([i.strip() for i in d])
         

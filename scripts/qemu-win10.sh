@@ -1,39 +1,46 @@
 #!/bin/bash
-VM_path='/home/xwx/Media/VM/'
-sudo tunctl -t tap1 -u xwx
-sudo ifconfig tap1 192.168.12.1 up
-# sudo iptables -A FORWARD -i tap1 -o enp0s31f6 -j ACCEPT
-# sudo iptables -A FORWARD -i enp0s31f6 -o tap1 -j ACCEPT
-# sudo iptables -t nat -A POSTROUTING -o enp0s31f6 -s 192.168.12.0/24 -j MASQUERADE
-sudo iptables -A FORWARD -i tap1 -j ACCEPT
-sudo iptables -A FORWARD -o tap1 -j ACCEPT
-sudo iptables -t nat -A POSTROUTING -s 192.168.12.0/24 -j MASQUERADE
-qemu-system-x86_64 -m 8G \
-  -machine q35 -device intel-iommu,caching-mode=on \
-  -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time -smp 8 \
-  -device vfio-pci,host=01:00.0 \
-  -device virtio-vga-gl -display gtk,gl=on \
+VM_path='/home/xwx/Code/VM/'
+sudo ip tuntap add dev tap-win mode tap user xwx
+sudo ifconfig tap-win 192.168.12.1 up
+# sudo iptables -A FORWARD -i tap-win -o enp5s0 -j ACCEPT
+# sudo iptables -A FORWARD -i enp5s0 -o tap-win -j ACCEPT
+# sudo iptables -t nat -A POSTROUTING -o enp5s0 -s 192.168.12.0/24 -j MASQUERADE
+sudo iptables -A FORWARD -i tap-win -j ACCEPT
+sudo iptables -A FORWARD -o tap-win -j ACCEPT
+sudo iptables -t nat -A POSTROUTING -o enp5s0 -s 192.168.12.0/24 -j MASQUERADE
+ 
+qemu-system-x86_64 -m 16G \
+  --enable-kvm -machine q35 -device intel-iommu,caching-mode=on \
+  -cpu host -smp 8 \
+  -boot order=d \
   -device virtio-net,netdev=network1 \
-  -netdev tap,id=network1,ifname=tap1,script=no,downscript=no,vhost=on \
+  -netdev tap,id=network1,ifname=tap-win,script=no,downscript=no,vhost=on \
+  -vga none -device qxl-vga,vgamem_mb=64 \
+  -device virtio-serial-pci \
+  -spice port=3001,disable-ticketing=on \
+  -device virtserialport,chardev=spice1,name=com.redhat.spice.1 \
+  -chardev spicevmc,id=spice1,name=vdagent \
   -device qemu-xhci,id=xhci \
   -usb -device usb-tablet \
-  -device usb-host,bus=xhci.0,vendorid=0x1a86,productid=0x7523 \
-  -device usb-host,bus=xhci.0,vendorid=0x045e,productid=0x0b12 \
-  -device usb-host,bus=xhci.0,vendorid=0x0079,productid=0x181c \
-  -device usb-host,bus=xhci.0,vendorid=0x258a,productid=0x0049 \
   -audiodev pipewire,id=snd0 \
   -device ich9-intel-hda \
   -device hda-output,audiodev=snd0 \
-  -drive if=pflash,format=raw,file=${VM_path}OVMF.fd \
-  --enable-kvm -boot order=d \
-  --cdrom ${VM_path}ISO/win10-img.iso \
-  ${VM_path}win10
+  -drive if=pflash,format=raw,file=${VM_path}OVMF-win10.fd \
+  -monitor unix:/tmp/qemu-monitor-win.sock,server,nowait \
+  --cdrom ${VM_path}ISO/virtio-win.iso \
+  ${VM_path}win10 &
 
-# remote-viewer spice://localhost:3001
+remote-viewer spice://localhost:3001
+# sleep 10
+# sudo mount -t cifs //192.168.12.2/Desktop ~/Code/VM/share-win -o username=xwx,password=Hh2001,uid=1000,gid=1000
+# sleep 10
 
-sh /usr/local/bin/qemu-clear.sh
+# echo "Press Any Key to SHUTDOWN!"
+# read
+bash /usr/local/bin/qemu-clear.sh win
+# echo "system_powerdown" | socat - UNIX-CONNECT:/tmp/qemu-monitor-win.sock
 
-  #
+
   # -vga qxl -device virtio-serial-pci \
   # -spice port=3001,disable-ticketing=on \
   # -device virtserialport,chardev=spice1,name=com.redhat.spice.1 \
@@ -44,4 +51,16 @@ sh /usr/local/bin/qemu-clear.sh
   # -audiodev alsa,id=snd0 \
   # -device ich9-intel-hda \
   # -device hda-duplex,audiodev=snd0 \
+  # -device virtio-vga-gl -display gtk,gl=on \
   #
+  # -device virtio-vga-gl -display gtk,gl=on \
+  #
+  # -device usb-host,bus=xhci.0,vendorid=0x1a86,productid=0x7523 \
+  # -device usb-host,bus=xhci.0,vendorid=0x045e,productid=0x0b12 \
+  # -device usb-host,bus=xhci.0,vendorid=0x0079,productid=0x181c \
+  # -device usb-host,bus=xhci.0,vendorid=0x258a,productid=0x0049 \
+  # -device vfio-pci,host=01:00.0 \
+  # --cdrom ${VM_path}ISO/virtio-win.iso \
+  # -virtfs local,path=/home/xwx/,security_model=passthrough,mount_tag=hostshare \
+  # -display spice-app \
+  # -vga qxl \

@@ -16,14 +16,14 @@ v.opt.rtp:prepend(lazypath)
 local plugins = {
 	require("plugins.colorscheme"),
 	require("plugins.transparent"),
-	require("plugins.autocomplete"),
+	-- require("plugins.autocomplete"),
 	require("plugins.bufferline"),
 	require("plugins.comment"),
 	require("plugins.editor"),
 	require("plugins.funny"),
 	require("plugins.git"),
 	require("plugins.ranger"),
-	require("plugins.snippets"),
+	-- require("plugins.snippets"),
 	require("plugins.statusline"),
 	require("plugins.surround"),
 	require("plugins.treesitter"),
@@ -31,10 +31,10 @@ local plugins = {
 	require("plugins.window-manager"),
 	require("plugins.rainbow"),
 	require("plugins.multi-cursor"),
-	require("plugins.lsp"),
-	require("plugins.dap"),
-	require("plugins.latex"),
-	require("plugins.flash"),
+	-- require("plugins.lsp"),
+	-- require("plugins.dap"),
+	-- require("plugins.latex"),
+	-- require("plugins.flash"),
 	require("plugins.im")
 }
 require("lazy").setup(plugins)

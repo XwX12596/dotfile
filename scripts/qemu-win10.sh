@@ -13,12 +13,9 @@ qemu-system-x86_64 -m 16G \
   --enable-kvm -machine q35 -device intel-iommu,caching-mode=on \
   -cpu host -smp 8 \
   -boot order=d \
+  -device virtio-vga-gl -display gtk,gl=on \
   -device virtio-net,netdev=network1 \
   -netdev tap,id=network1,ifname=tap-win,script=no,downscript=no,vhost=on \
-  -vga none -device qxl-vga,vgamem_mb=64 \
-  -device virtio-serial-pci \
-  -spice port=3001,disable-ticketing=on \
-  -device virtserialport,chardev=spice1,name=com.redhat.spice.1 \
   -chardev spicevmc,id=spice1,name=vdagent \
   -device qemu-xhci,id=xhci \
   -usb -device usb-tablet \
@@ -28,9 +25,9 @@ qemu-system-x86_64 -m 16G \
   -drive if=pflash,format=raw,file=${VM_path}OVMF-win10.fd \
   -monitor unix:/tmp/qemu-monitor-win.sock,server,nowait \
   --cdrom ${VM_path}ISO/virtio-win.iso \
-  ${VM_path}win10 &
+  ${VM_path}win10
 
-remote-viewer spice://localhost:3001
+# remote-viewer spice://localhost:3001
 # sleep 10
 # sudo mount -t cifs //192.168.12.2/Desktop ~/Code/VM/share-win -o username=xwx,password=Hh2001,uid=1000,gid=1000
 # sleep 10
@@ -64,3 +61,7 @@ bash /usr/local/bin/qemu-clear.sh win
   # -virtfs local,path=/home/xwx/,security_model=passthrough,mount_tag=hostshare \
   # -display spice-app \
   # -vga qxl \
+  # -vga none -device qxl-vga,vgamem_mb=64 \
+  # -device virtio-serial-pci \
+  # -spice port=3001,disable-ticketing=on \
+  # -device virtserialport,chardev=spice1,name=com.redhat.spice.1 \

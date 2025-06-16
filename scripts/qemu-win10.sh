@@ -13,9 +13,11 @@ qemu-system-x86_64 -m 16G \
   --enable-kvm -machine q35 -device intel-iommu,caching-mode=on \
   -cpu host -smp 8 \
   -boot order=d \
-  -device virtio-vga-gl -display gtk,gl=on \
   -device virtio-net,netdev=network1 \
   -netdev tap,id=network1,ifname=tap-win,script=no,downscript=no,vhost=on \
+  -vga qxl -device virtio-serial-pci \
+  -spice port=3001,disable-ticketing=on \
+  -device virtserialport,chardev=spice1,name=com.redhat.spice.1 \
   -chardev spicevmc,id=spice1,name=vdagent \
   -device qemu-xhci,id=xhci \
   -usb -device usb-tablet \
@@ -38,6 +40,7 @@ bash /usr/local/bin/qemu-clear.sh win
 # echo "system_powerdown" | socat - UNIX-CONNECT:/tmp/qemu-monitor-win.sock
 
 
+  # -device virtio-vga-gl -display gtk,gl=on \
   # -vga qxl -device virtio-serial-pci \
   # -spice port=3001,disable-ticketing=on \
   # -device virtserialport,chardev=spice1,name=com.redhat.spice.1 \

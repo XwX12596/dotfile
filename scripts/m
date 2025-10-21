@@ -20,4 +20,4 @@ for arg in "$@"; do
   fi
 done
 
-echo "exec $cmd$params$urls" | sh
+echo "exec $cmd$params$urls" | bash

@@ -24,6 +24,7 @@ v.opt.smartcase = true
 v.opt.signcolumn = "yes"
 v.opt.mouse:append("a")
 v.opt.clipboard:append("unnamedplus")
+v.g.python3_host_prog = 'C:/Users/xwx/AppData/Local/Programs/Python/Python310/python.exe'
 
 
 -- vim.o.exrc = true

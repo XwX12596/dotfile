@@ -14,28 +14,29 @@ v.opt.rtp:prepend(lazypath)
 
 -- add plugins
 local plugins = {
-	require("plugins.colorscheme"),
-	require("plugins.transparent"),
+	-- require("plugins.colorscheme"),
+	-- require("plugins.transparent"),
 	require("plugins.autocomplete"),
 	require("plugins.bufferline"),
 	require("plugins.comment"),
 	require("plugins.editor"),
 	require("plugins.funny"),
 	require("plugins.git"),
-	require("plugins.ranger"),
-	require("plugins.snippets"),
-	require("plugins.statusline"),
+	-- require("plugins.ranger"),
+	-- require("plugins.snippets"),
+	-- require("plugins.statusline"),
 	require("plugins.surround"),
 	require("plugins.treesitter"),
-	require("plugins.undo"),
+	-- require("plugins.undo"),
 	require("plugins.window-manager"),
 	require("plugins.rainbow"),
 	require("plugins.multi-cursor"),
-	require("plugins.lsp"),
-	require("plugins.dap"),
-	require("plugins.latex"),
+	-- require("plugins.lsp"),
+	-- require("plugins.dap"),
+	-- require("plugins.latex"),
 	require("plugins.flash"),
-	require("plugins.im")
+	require("plugins.im"),
+	require("plugins.tree")
 }
 require("lazy").setup(plugins)
 
@@ -44,4 +45,9 @@ if v.g.neovide then
 	v.o.guifont = "Hack:h14" -- text below applies for VimScript
 	v.g.neovide_transparency = 0.8
 	-- v.g.neovide_fullscreen = true
+end
+
+-- vscode
+if vim.g.vscode then
+
 end

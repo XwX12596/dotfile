@@ -15,7 +15,7 @@ alias pc="proxychains"
 
 # exec
 # eval "$(atuin init zsh)"
-eval "$(oh-my-posh init --config ~/.config/tokyo.omp.json zsh)"
+# eval "$(oh-my-posh init --config ~/.config/tokyo.omp.json zsh)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

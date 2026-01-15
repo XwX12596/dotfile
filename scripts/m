@@ -20,4 +20,5 @@ for arg in "$@"; do
   fi
 done
 
+exec > /dev/null 2>&1
 echo "exec $cmd$params$urls" | sh

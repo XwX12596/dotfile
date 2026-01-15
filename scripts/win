@@ -1,0 +1,2 @@
+exec > /dev/null 2>&1
+xfreerdp3 /v:192.168.111.111 /u:xwx /p:Hh2001 /size:2560x1440 /scale:140 /smart-sizing /audio /microphone /audio-mode:remote /drive:home,/home/xwx +clipboard &

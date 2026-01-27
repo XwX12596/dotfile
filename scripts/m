@@ -21,4 +21,4 @@ for arg in "$@"; do
 done
 
 exec 1> /dev/null
-echo "exec $cmd$params$urls" | sh
+echo "exec $cmd$params$urls" | bash

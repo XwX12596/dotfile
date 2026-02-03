@@ -1,1 +1,1 @@
-scrcpy -KSw --video-codec=h265 --tcpip=192.168.31.100
+scrcpy -KSwe --video-codec=h265

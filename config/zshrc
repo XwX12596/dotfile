@@ -14,3 +14,4 @@ alias cls="clear"
 alias pc="proxychains"
 # Env
 export EDITOR="nvim"
+export PATH=$PATH:$HOME/.local/bin

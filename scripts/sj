@@ -1,1 +1,5 @@
-scrcpy -KSwe --video-codec=h265
+#!/bin/bash
+IP="192.168.31.100"
+PORT=$(nmap $IP -p 32000-49000 | awk '/tcp open/ {print $1}' | head -n1 | cut -d/ -f1)
+scrcpy -KSw --video-codec=h265 --tcpip="$IP:$PORT"
+

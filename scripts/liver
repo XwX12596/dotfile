@@ -6,7 +6,7 @@ bye='Enjoy Yourself!!'
 sorry='DAMEDAYO!'
 tip='Press Enter To Exit...'
 append_tip='Using Options:'
-ignore_words="战双|鸣潮|瓦|突击|游戏"
+ignore_words="战双|鸣潮|瓦|明日方舟|突击|游戏"
 # ignore_words="$^"
 
 while IFS=' ' read name ID; do

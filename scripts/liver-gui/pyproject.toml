@@ -1,0 +1,11 @@
+[project]
+name = "liver-gui"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyinstaller>=6.20.0",
+    "pyside6>=6.11.1",
+    "requests>=2.34.2",
+]

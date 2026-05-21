@@ -1,0 +1,193 @@
+import os
+import shlex
+import sys
+import requests
+from PySide6.QtWidgets import (
+    QApplication, QAbstractItemView, QHeaderView, QHBoxLayout, QMainWindow,
+    QMessageBox, QPushButton, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget,
+)
+from PySide6.QtCore import QTimer
+import subprocess
+
+URL = "https://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids"
+REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+    "Referer": "https://live.bilibili.com/",
+    "Origin": "https://live.bilibili.com",
+    "Accept": "application/json, text/plain, */*",
+}
+
+REFRESH_MS = 10000
+
+IGNORE_WORDS = ["战双", "鸣潮", "瓦", "明日方舟", "突击", "游戏"]
+
+LIVERC = {}
+DEFAULT_COMMAND = "bili-live {room}"
+
+def load_config():
+    global LIVERC
+    path = f"{os.path.expanduser('~')}/.liverc"
+    with open(path, "r") as f:
+        for line in f:
+            name, uid = line.strip().split()
+            LIVERC[uid] = name
+
+
+def fetch_data():
+    uids = list(LIVERC.keys())
+
+    try:
+        r = requests.post(URL, json={"uids": uids}, headers=REQUEST_HEADERS, timeout=10)
+        data = r.json().get("data", {})
+    except:
+        return []
+
+    rows = []
+
+    for uid in uids:
+        info = data.get(uid)
+        if not info:
+            continue
+
+        if info.get("live_status") != 1:
+            continue
+
+        title = info.get("title", "")
+
+        if any(w in title for w in IGNORE_WORDS):
+            continue
+
+        room = info.get("short_id") or info.get("room_id")
+
+        rows.append([
+            LIVERC.get(uid, uid),
+            title,
+            str(room)
+        ])
+
+    return rows
+
+
+def launch_room(room, command_template):
+    command_text = command_template.format(room=room)
+    command = shlex.split(command_text)
+    subprocess.Popen(command)
+
+
+class Main(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Liver GUI")
+        self.resize(900, 500)
+
+        self.table = QTableWidget()
+        self.table.setColumnCount(3)
+        self.table.setHorizontalHeaderLabels(["NAME", "TITLE", "ROOM"])
+        self.table.setAlternatingRowColors(True)
+        self.table.setShowGrid(False)
+        self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.table.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        self.table.horizontalHeader().setStretchLastSection(False)
+        self.table.verticalHeader().setVisible(False)
+
+        self.table.cellDoubleClicked.connect(self.on_click)
+
+        refresh_button = QPushButton("Refresh")
+        refresh_button.clicked.connect(self.refresh)
+
+        launch_button = QPushButton("Launch")
+        launch_button.clicked.connect(self.launch_selected)
+
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(refresh_button)
+        button_layout.addWidget(launch_button)
+        button_layout.addStretch()
+
+        layout = QVBoxLayout()
+        layout.addLayout(button_layout)
+        layout.addWidget(self.table)
+
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.refresh)
+        self.timer.start(REFRESH_MS)
+
+        self.refresh()
+
+    def refresh(self):
+        rows = fetch_data()
+
+        self.table.setRowCount(len(rows))
+
+        for i, row in enumerate(rows):
+            name, title, room = row
+
+            self.table.setItem(i, 0, QTableWidgetItem(name))
+            self.table.setItem(i, 1, QTableWidgetItem(title))
+            self.table.setItem(i, 2, QTableWidgetItem(room))
+
+        self.table.resizeRowsToContents()
+
+    def selected_rooms(self):
+        rows = sorted({index.row() for index in self.table.selectionModel().selectedRows()})
+        rooms = []
+        seen = set()
+
+        for row in rows:
+            room_item = self.table.item(row, 2)
+            if not room_item:
+                continue
+
+            room = room_item.text().strip()
+            if not room or room in seen:
+                continue
+
+            seen.add(room)
+            rooms.append(room)
+
+        return rooms
+
+    def on_click(self, row, _col):
+        room_item = self.table.item(row, 2)
+        if not room_item:
+            return
+
+        try:
+            launch_room(room_item.text(), DEFAULT_COMMAND)
+        except (FileNotFoundError, ValueError) as exc:
+            QMessageBox.critical(self, "Failed", f"Unable to launch: {exc}")
+
+    def launch_selected(self):
+        rooms = self.selected_rooms()
+        if not rooms:
+            QMessageBox.information(self, "Not Selected", "Please select at least one live stream to launch.")
+            return
+
+        errors = []
+
+        for room in rooms:
+            try:
+                launch_room(room, DEFAULT_COMMAND)
+            except (FileNotFoundError, ValueError) as exc:
+                errors.append(f"{room}: {exc}")
+
+        if errors:
+            QMessageBox.critical(self, "Failed", "\n".join(errors))
+
+
+if __name__ == "__main__":
+    load_config()
+
+    app = QApplication(sys.argv)
+    win = Main()
+    win.show()
+    sys.exit(app.exec())

@@ -80,7 +80,7 @@ class Main(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Liver GUI")
-        self.resize(900, 500)
+        self.resize(450, 800)
 
         self.table = QTableWidget()
         self.table.setColumnCount(3)

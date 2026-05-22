@@ -3,13 +3,13 @@ import shlex
 import sys
 import requests
 import datetime
+import subprocess
 from PySide6.QtWidgets import (
     QApplication, QAbstractItemView, QHeaderView, QHBoxLayout, QMainWindow,
-    QMessageBox, QPushButton, QTableWidget, QTableWidgetItem, QVBoxLayout,
-    QWidget,
+    QMessageBox, QPushButton, QTableWidget, QTableWidgetItem,
+    QVBoxLayout, QWidget,
 )
 from PySide6.QtCore import QTimer, Qt
-import subprocess
 
 URL = "https://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids"
 REQUEST_HEADERS = {
@@ -63,12 +63,13 @@ def fetch_data():
 
         start = datetime.datetime.fromtimestamp(info.get("live_time")).strftime("%H:%M:%S")
 
-        rows.append([
-            LIVERC.get(uid, uid),
-            title,
-            str(room),
-            start
-        ])
+        rows.append({
+            "uid": uid,
+            "name": LIVERC.get(uid, uid),
+            "title": title,
+            "room": str(room),
+            "start": start,
+        })
 
     return rows
 
@@ -127,15 +128,37 @@ class Main(QMainWindow):
         self.timer.timeout.connect(self.refresh)
         self.timer.start(REFRESH_MS)
 
+        self.live_uids = None
+
         self.refresh()
+
+    def show_live_reminder(self, rows):
+        title = "Liver GUI"
+        message = "\n".join(
+            f"{row['name']} | {row['title']} | {row['room']}" for row in rows
+        )
+
+        subprocess.Popen(["notify-send", title, message])
 
     def refresh(self):
         rows = fetch_data()
 
+        current_uids = {row["uid"] for row in rows}
+        if self.live_uids is None:
+            self.live_uids = current_uids
+        else:
+            new_uids = current_uids - self.live_uids
+            if new_uids:
+                new_rows = [row for row in rows if row["uid"] in new_uids]
+                self.show_live_reminder(new_rows)
+            self.live_uids = current_uids
         self.table.setRowCount(len(rows))
 
         for i, row in enumerate(rows):
-            name, title, room, start = row
+            name = row["name"]
+            title = row["title"]
+            room = row["room"]
+            start = row["start"]
 
             items = [
                 QTableWidgetItem(name),

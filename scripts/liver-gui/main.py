@@ -23,6 +23,11 @@ REFRESH_MS = 10000
 
 IGNORE_WORDS = ["战双", "鸣潮", "瓦", "明日方舟", "突击", "游戏"]
 
+MYFAVORITE = ["282994", "5714768"]
+
+NOTIFY_SEND_ARGS = ["-a", "LIVE Start! - LiverGUI",
+                    "-t", "0", "-i", "/home/xwx/.local/share/icons/livergui.svg"]
+
 LIVERC = {}
 DEFAULT_COMMAND = "bili-live {room}"
 
@@ -132,13 +137,13 @@ class Main(QMainWindow):
 
         self.refresh()
 
-    def show_live_reminder(self, rows):
-        title = "Liver GUI"
+    def show_live_reminder(self, rows, args):
+        title = "\n".join(f"{row['name']}" for row in rows)
         message = "\n".join(
-            f"{row['name']} | {row['title']} | {row['room']}" for row in rows
+            f"{row['title']} | {row['room']} | {row['start']}" for row in rows
         )
 
-        subprocess.Popen(["notify-send", title, message])
+        subprocess.Popen(["notify-send", title, message] + args)
 
     def refresh(self):
         rows = fetch_data()
@@ -150,7 +155,12 @@ class Main(QMainWindow):
             new_uids = current_uids - self.live_uids
             if new_uids:
                 new_rows = [row for row in rows if row["uid"] in new_uids]
-                self.show_live_reminder(new_rows)
+                favo_rows = [row for row in new_rows if row["uid"] in MYFAVORITE]
+                normal_rows = [row for row in new_rows if row not in favo_rows]
+                if favo_rows != []:
+                    self.show_live_reminder(favo_rows, NOTIFY_SEND_ARGS + ["-u", "critical"])
+                if normal_rows != []:
+                    self.show_live_reminder(normal_rows, NOTIFY_SEND_ARGS)
             self.live_uids = current_uids
         self.table.setRowCount(len(rows))
 

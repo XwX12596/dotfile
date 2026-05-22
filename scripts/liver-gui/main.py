@@ -91,6 +91,8 @@ class Main(QMainWindow):
         self.table.setHorizontalHeaderLabels(["NAME", "TITLE", "ROOM", "START"])
         self.table.setAlternatingRowColors(True)
         self.table.setShowGrid(False)
+        self.table.setWordWrap(False)
+        self.table.setTextElideMode(Qt.TextElideMode.ElideRight)
         self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)

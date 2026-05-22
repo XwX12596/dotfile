@@ -2,12 +2,13 @@ import os
 import shlex
 import sys
 import requests
+import datetime
 from PySide6.QtWidgets import (
     QApplication, QAbstractItemView, QHeaderView, QHBoxLayout, QMainWindow,
     QMessageBox, QPushButton, QTableWidget, QTableWidgetItem, QVBoxLayout,
     QWidget,
 )
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, Qt
 import subprocess
 
 URL = "https://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids"
@@ -60,10 +61,13 @@ def fetch_data():
 
         room = info.get("short_id") or info.get("room_id")
 
+        start = datetime.datetime.fromtimestamp(info.get("live_time")).strftime("%H:%M:%S")
+
         rows.append([
             LIVERC.get(uid, uid),
             title,
-            str(room)
+            str(room),
+            start
         ])
 
     return rows
@@ -80,11 +84,11 @@ class Main(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Liver GUI")
-        self.resize(450, 800)
+        self.resize(400, 500)
 
         self.table = QTableWidget()
-        self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["NAME", "TITLE", "ROOM"])
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels(["NAME", "TITLE", "ROOM", "START"])
         self.table.setAlternatingRowColors(True)
         self.table.setShowGrid(False)
         self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
@@ -129,11 +133,18 @@ class Main(QMainWindow):
         self.table.setRowCount(len(rows))
 
         for i, row in enumerate(rows):
-            name, title, room = row
+            name, title, room, start = row
 
-            self.table.setItem(i, 0, QTableWidgetItem(name))
-            self.table.setItem(i, 1, QTableWidgetItem(title))
-            self.table.setItem(i, 2, QTableWidgetItem(room))
+            items = [
+                QTableWidgetItem(name),
+                QTableWidgetItem(title),
+                QTableWidgetItem(room),
+                QTableWidgetItem(start),
+            ]
+
+            for col, item in enumerate(items):
+                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                self.table.setItem(i, col, item)
 
         self.table.resizeRowsToContents()
 

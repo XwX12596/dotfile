@@ -39,6 +39,17 @@ def load_config():
             name, uid = line.strip().split()
             LIVERC[uid] = name
 
+def fmt(n):
+    u = ["", "K", "M", "B", "T"]
+    i = 0
+    n = float(n)
+
+    while n >= 1000 and i < len(u)-1:
+        n /= 1000
+        i += 1
+
+    s = f"{n:.3g}"   # 3 significant digits
+    return s + u[i]
 
 def fetch_data():
     uids = list(LIVERC.keys())
@@ -66,6 +77,8 @@ def fetch_data():
 
         room = info.get("short_id") or info.get("room_id")
 
+        online = fmt(info.get("online"))
+
         start = datetime.datetime.fromtimestamp(info.get("live_time")).strftime("%H:%M:%S")
 
         rows.append({
@@ -73,6 +86,7 @@ def fetch_data():
             "name": LIVERC.get(uid, uid),
             "title": title,
             "room": str(room),
+            "online": online,
             "start": start,
         })
 
@@ -93,8 +107,8 @@ class Main(QMainWindow):
         self.resize(400, 500)
 
         self.table = QTableWidget()
-        self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels(["NAME", "TITLE", "ROOM", "START"])
+        self.table.setColumnCount(5)
+        self.table.setHorizontalHeaderLabels(["NAME", "TITLE", "ROOM", "ONLINE", "START"])
         self.table.setAlternatingRowColors(True)
         self.table.setShowGrid(False)
         self.table.setWordWrap(False)
@@ -105,6 +119,8 @@ class Main(QMainWindow):
         self.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
         self.table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         self.table.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        self.table.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        self.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         self.table.horizontalHeader().setStretchLastSection(False)
         self.table.verticalHeader().setVisible(False)
 
@@ -168,12 +184,14 @@ class Main(QMainWindow):
             name = row["name"]
             title = row["title"]
             room = row["room"]
+            online = row["online"]
             start = row["start"]
 
             items = [
                 QTableWidgetItem(name),
                 QTableWidgetItem(title),
                 QTableWidgetItem(room),
+                QTableWidgetItem(online),
                 QTableWidgetItem(start),
             ]
 

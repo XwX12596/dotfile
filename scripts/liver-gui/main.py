@@ -21,7 +21,7 @@ REQUEST_HEADERS = {
 
 REFRESH_MS = 10000
 
-IGNORE_WORDS = ["战双", "鸣潮", "瓦", "明日方舟", "突击", "游戏"]
+IGNORE_WORDS = ["战双", "鸣潮", "瓦", "明日方舟", "突击", "游戏", "前瞻"]
 
 MYFAVORITE = ["282994", "5714768"]
 

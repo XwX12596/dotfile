@@ -1,4 +1,5 @@
 import os
+import re
 import shlex
 import sys
 import requests
@@ -21,7 +22,7 @@ REQUEST_HEADERS = {
 
 REFRESH_MS = 10000
 
-IGNORE_WORDS = ["战双", "鸣潮", "瓦", "明日方舟", "突击", "游戏", "前瞻"]
+IGNORE_REGEX = [r"战双", r"鸣潮", r"瓦", r"明日方舟", r"突击", r"游戏", r"前瞻", r"\d\.\d"]
 
 MYFAVORITE = ["282994", "5714768"]
 
@@ -72,7 +73,7 @@ def fetch_data():
 
         title = info.get("title", "")
 
-        if any(w in title for w in IGNORE_WORDS):
+        if any([re.search(r, title) for r in IGNORE_REGEX]):
             continue
 
         room = info.get("short_id") or info.get("room_id")

@@ -176,6 +176,8 @@ class Main(QMainWindow):
                 normal_rows = [row for row in new_rows if row not in favo_rows]
                 if favo_rows != []:
                     self.show_live_reminder(favo_rows, NOTIFY_SEND_ARGS + ["-u", "critical"])
+                    for favo_row in favo_rows:
+                        launch_room(favo_row["room"], DEFAULT_COMMAND)
                 if normal_rows != []:
                     self.show_live_reminder(normal_rows, NOTIFY_SEND_ARGS)
             self.live_uids = current_uids

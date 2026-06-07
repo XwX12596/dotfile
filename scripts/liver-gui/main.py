@@ -7,7 +7,7 @@ import datetime
 import subprocess
 from PySide6.QtWidgets import (
     QApplication, QAbstractItemView, QHeaderView, QHBoxLayout, QMainWindow,
-    QMessageBox, QPushButton, QTableWidget, QTableWidgetItem,
+    QLineEdit, QMessageBox, QPushButton, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget,
 )
 from PySide6.QtCore import QTimer, Qt
@@ -94,6 +94,17 @@ def fetch_data():
     return rows
 
 
+def fetch_room_id(uid):
+    r = requests.post(URL, json={"uids": [uid]}, headers=REQUEST_HEADERS, timeout=10)
+    r.raise_for_status()
+
+    info = r.json().get("data", {}).get(uid)
+    if not info or not info.get("room_id"):
+        raise ValueError(f"No room found for UID {uid}")
+
+    return str(info["room_id"])
+
+
 def launch_room(room, command_template):
     command_text = command_template.format(room=room)
     command = shlex.split(command_text)
@@ -130,11 +141,16 @@ class Main(QMainWindow):
         refresh_button = QPushButton("Refresh")
         refresh_button.clicked.connect(self.refresh)
 
+        self.uid_input = QLineEdit()
+        self.uid_input.setPlaceholderText("UID")
+        self.uid_input.returnPressed.connect(self.launch)
+
         launch_button = QPushButton("Launch")
-        launch_button.clicked.connect(self.launch_selected)
+        launch_button.clicked.connect(self.launch)
 
         button_layout = QHBoxLayout()
         button_layout.addWidget(refresh_button)
+        button_layout.addWidget(self.uid_input)
         button_layout.addWidget(launch_button)
         button_layout.addStretch()
 
@@ -249,6 +265,18 @@ class Main(QMainWindow):
 
         if errors:
             QMessageBox.critical(self, "Failed", "\n".join(errors))
+
+    def launch(self):
+        uid = self.uid_input.text().strip()
+        if not uid:
+            self.launch_selected()
+            return
+
+        try:
+            room_id = fetch_room_id(uid)
+            launch_room(room_id, DEFAULT_COMMAND)
+        except (requests.RequestException, FileNotFoundError, ValueError) as exc:
+            QMessageBox.critical(self, "Failed", f"Unable to launch {uid}: {exc}")
 
 
 if __name__ == "__main__":

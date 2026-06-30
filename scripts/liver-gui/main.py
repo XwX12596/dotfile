@@ -22,7 +22,7 @@ REQUEST_HEADERS = {
 
 REFRESH_MS = 10000
 
-IGNORE_REGEX = [r"战双", r"鸣潮", r"瓦", r"明日方舟", r"突击", r"游戏", r"前瞻", r"\d\.\d"]
+IGNORE_REGEX = [r"战双", r"鸣潮", r"瓦", r"明日方舟", r"游戏", r"前瞻", r"\d\.\d"]
 
 MYFAVORITE = ["282994", "5714768"]
 

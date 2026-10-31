@@ -13,5 +13,12 @@ alias cax="conda activate xwx"
 alias cls="clear"
 alias pc="proxychains"
 # Env
+export TERM=st-256color
 export EDITOR="nvim"
 export PATH=$PATH:$HOME/.local/bin
+
+host_config="$HOME/.config/zsh/hosts/${HOST}.zsh"
+
+if [[ -r "$host_config" ]]; then
+    source "$host_config"
+fi

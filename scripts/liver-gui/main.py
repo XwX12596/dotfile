@@ -27,7 +27,7 @@ IGNORE_REGEX = [r"战双", r"鸣潮", r"瓦", r"明日方舟", r"游戏", r"前�
 MYFAVORITE = ["282994", "5714768"]
 
 NOTIFY_SEND_ARGS = ["-a", "LIVE Start! - LiverGUI",
-                    "-t", "0", "-i", "/home/xwx/.local/share/icons/livergui.svg"]
+                    "-t", "3600", "-i", "/home/xwx/.local/share/icons/livergui.svg"]
 
 LIVERC = {}
 DEFAULT_COMMAND = "bili-live {room}"
